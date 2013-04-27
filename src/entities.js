@@ -36,7 +36,7 @@ var HeroEntity  = me.ObjectEntity.extend({
           return false;
 
           }
-                      
+      :                      
 });
 
 var TrinagleUpEntity = me.ObjectEntity.extend({
@@ -131,5 +131,3 @@ var Entity = me.ObjectEntity.extend({
                }
 
 });
-
-// constatns.colorEnum

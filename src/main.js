@@ -64,8 +64,10 @@ var jsApp	=
 		// set the "Play/Ingame" Screen Object
 		me.state.set(me.state.PLAY, new PlayScreen());
       // Entity pool
-      me.entityPool.add("heroEntity", HeroEntity);
-
+        me.entityPool.add("heroEntity", HeroEntity);
+        me.entityPool.add("redAcidEntity", RedAcidEntity);
+        me.entityPool.add("blueAcidEntity", BlueAcidEntity);
+        me.entityPool.add("redAcidEntity", RedAcidEntity);
       // Key bindings
       me.input.bindKey(me.input.KEY.LEFT,  "left");
       me.input.bindKey(me.input.KEY.RIGHT, "right");
