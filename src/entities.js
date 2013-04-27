@@ -176,7 +176,6 @@ var AcidEntity  = me.ObjectEntity.extend({
             this.setVelocity(0,0 );
             this.type = me.game.ENEMY_OBJECT;
             this.collidable = true;
-            console.log("Acid was created");
             this.isAcid = true;
             
         },
@@ -185,7 +184,6 @@ var AcidEntity  = me.ObjectEntity.extend({
           },
   
   onCollision: function(){
-                console.log("Acid was touched");
                }
 
 })
@@ -200,7 +198,6 @@ var RedAcidEntity = AcidEntity.extend({
           },
   
   onCollision: function(){
-                console.log("Red acid was touched");
                }
 
 });
