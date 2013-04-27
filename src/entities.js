@@ -1,5 +1,7 @@
 var HeroEntity  = me.ObjectEntity.extend({
   init: function(x, y, settings){
+            // Constants
+            this.FLICKER_TIME = 45,
             this.parent(x, y, settings);
 
             this.setVelocity(3,15);
@@ -7,6 +9,8 @@ var HeroEntity  = me.ObjectEntity.extend({
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
             this.collidable = true;
             this.powerUpColor = "none";
+            this.credits = 5;
+            this.life = 3;
                 } 
         ,
   update: function(){
@@ -36,7 +40,7 @@ var HeroEntity  = me.ObjectEntity.extend({
                   };
               if(res.obj.isAcid == true){
                   if(res.obj.acidColor != this.powerUpColor){
-                     this.die();
+                     this.getDamage();
                   } 
               }
           }
@@ -49,10 +53,35 @@ var HeroEntity  = me.ObjectEntity.extend({
           return false;
 
           },
-
+  // The hero has no lives left and dies
   die: function(){
            console.log("The hero died.");
-       }
+           this.credits--;
+           if(this.credits < 0){
+               me.state.set(me.state.GAME_OVER);
+           }
+           me.levelDirector.reloadLevel()
+       },
+
+  // The hero gets  damage
+  getDamage: function(){
+                 if(!this.isFlickering()){
+                    this.life--;
+                    if(this.life <= 0)  {
+                        this.die();
+                        return;
+                    }
+                    this.flicker(this.FLICKER_TIME);
+                    console.log(this);
+                 }
+             },
+
+  // Hero gets a powerup
+  getPowerUp: function(powerUp){
+                this.powerUpColor = powerUp.color;
+              }
+
+
 });
 
 

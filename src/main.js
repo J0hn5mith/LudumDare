@@ -103,6 +103,13 @@ var jsApp	=
 
 		// load everything & display a loading screen
 		me.state.change(me.state.LOADING);
+
+        // Init the game stats
+        me.gamestat.add("credits", 5);
+        me.gamestat.add("score", 0);
+        me.gamestat.add("currentLevel", 0);
+
+        console.log(GameManager.credits);
 	},
 	
 	
