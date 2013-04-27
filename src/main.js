@@ -9,7 +9,11 @@
 
 // game resources
 var g_resources= [{
-    name: "test",
+    name: "level1",
+    type: "tmx",
+    src: "data/map/level1.tmx"
+},{
+    name: "level2",
     type: "tmx",
     src: "data/map/test.tmx"
 },{
@@ -20,6 +24,30 @@ var g_resources= [{
     name: "black_hero",
     type: "image",
     src: "data/sprites/black_hero_64x32.png"
+},{
+    name: "black_enemy1",
+    type: "image",
+    src: "data/sprites/black_enemy1_28x28.png"
+},{
+    name: "black_enemy2",
+    type: "image",
+    src: "data/sprites/black_enemy2_28x28.png"
+},{
+    name: "white_enemy1",
+    type: "image",
+    src: "data/sprites/white_enemy1_28x28.png"
+},{
+    name: "white_enemy2",
+    type: "image",
+    src: "data/sprites/white_enemy2_28x28.png"
+},{
+    name: "white_coin",
+    type: "image",
+    src: "data/sprites/white_coin_32x32.png"
+},{
+    name: "black_coin",
+    type: "image",
+    src: "data/sprites/black_coin_32x32.png"
 }];
 
 
@@ -65,6 +93,9 @@ var jsApp	=
 		me.state.set(me.state.PLAY, new PlayScreen());
       // Entity pool
         me.entityPool.add("heroEntity", HeroEntity);
+        me.entityPool.add("coinEntity", CoinEntity);
+        me.entityPool.add("Enemy1Entity", Enemy1Entity);
+        me.entityPool.add("Enemy2Entity", Enemy2Entity);
       //  me.entityPool.add("redAcidEntity", RedAcidEntity);
      //   me.entityPool.add("blueAcidEntity", BlueAcidEntity);
       //  me.entityPool.add("greenAcidEntity", GreenAcidEntity);
@@ -85,7 +116,7 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-      me.levelDirector.loadLevel("test");
+      me.levelDirector.loadLevel("level1");
 	},
 	
 	
