@@ -76,6 +76,7 @@ var AcidEntity  = me.ObjectEntity.extend({
           },
   
   onCollision: function(){
+                
                }
 
 })

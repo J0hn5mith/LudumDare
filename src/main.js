@@ -67,7 +67,7 @@ var jsApp	=
         me.entityPool.add("heroEntity", HeroEntity);
         me.entityPool.add("redAcidEntity", RedAcidEntity);
         me.entityPool.add("blueAcidEntity", BlueAcidEntity);
-        me.entityPool.add("redAcidEntity", RedAcidEntity);
+        me.entityPool.add("GreenAcidEntity", GreenAcidEntity);
       // Key bindings
       me.input.bindKey(me.input.KEY.LEFT,  "left");
       me.input.bindKey(me.input.KEY.RIGHT, "right");
