@@ -14,13 +14,14 @@ var HeroEntity  = me.ObjectEntity.extend({
             this.vel.x -= this.accel.x * me.timer.tick;
 
         } else if (me.input.isKeyPressed('right')) {
-            this.filpX(false);
-        }
-        else{
+            this.vel.x += this.accel.x * me.timer.tick;
+        }else{
+
             this.vel.x = 0;
         }
+
         if(me.input.isKeyPressed('jump')){
-            if(this.jumping && ! this.falling){
+            if(!this.jumping && ! this.falling){
                 this.vel.y = - this.maxVel.y * me.timer.tick;
                 this.jumping = true;
             }
