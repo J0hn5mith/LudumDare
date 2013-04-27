@@ -15,7 +15,7 @@ var g_resources= [{
 },{
     name: "level2",
     type: "tmx",
-    src: "data/map/test.tmx"
+    src: "data/map/level2.tmx"
 },{
     name: "tileset32x32",
     type: "image",
