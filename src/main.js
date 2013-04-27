@@ -109,7 +109,6 @@ var jsApp	=
         me.gamestat.add("score", 0);
         me.gamestat.add("currentLevel", 0);
 
-        console.log(GameManager.credits);
 	},
 	
 	
