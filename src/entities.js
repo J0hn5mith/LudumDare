@@ -65,7 +65,22 @@ var TriangleDownEntity = me.ObjectEntity.extend({
 
 });
 
-var RedAcidEntity = me.ObjectEntity.extend({
+var AcidEntity  = me.ObjectEntity.extend({
+  init: function(x, y, settings){
+            this.parent(x, y, settings);
+            this.setVelocity(0,0 );
+            this.type = me.game.ENEMY_OBJECT;
+            this.collidable = true;
+        },
+  update: function(){
+
+          },
+  
+  onCollision: function(){
+               }
+
+})
+var RedAcidEntity = AcidEntity({
   init: function(x, y, settings){
             this.parent(x, y, settings);
         },
@@ -78,7 +93,7 @@ var RedAcidEntity = me.ObjectEntity.extend({
 
 });
 
-var BlueAcidEntity = me.ObjectEntity.extend({
+var BlueAcidEntity = AcidEntity({
   init: function(x, y, settings){
             this.parent(x, y, settings);
         },
@@ -116,3 +131,5 @@ var Entity = me.ObjectEntity.extend({
                }
 
 });
+
+// constatns.colorEnum
