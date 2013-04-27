@@ -36,7 +36,6 @@ var HeroEntity  = me.ObjectEntity.extend({
           return false;
 
           }
-      :                      
 });
 
 var TrinagleUpEntity = me.ObjectEntity.extend({
