@@ -13,9 +13,9 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/test.tmx"
 },{
-    name: "tileset",
+    name: "tileset32x32",
     type: "image",
-    src: "data/tileset/tileset.png"
+    src: "data/tileset/tileset32x32.png"
 },{
     name: "black_hero",
     type: "image",
@@ -65,9 +65,9 @@ var jsApp	=
 		me.state.set(me.state.PLAY, new PlayScreen());
       // Entity pool
         me.entityPool.add("heroEntity", HeroEntity);
-        me.entityPool.add("redAcidEntity", RedAcidEntity);
-        me.entityPool.add("blueAcidEntity", BlueAcidEntity);
-        me.entityPool.add("GreenAcidEntity", GreenAcidEntity);
+      //  me.entityPool.add("redAcidEntity", RedAcidEntity);
+     //   me.entityPool.add("blueAcidEntity", BlueAcidEntity);
+      //  me.entityPool.add("greenAcidEntity", GreenAcidEntity);
       // Key bindings
       me.input.bindKey(me.input.KEY.LEFT,  "left");
       me.input.bindKey(me.input.KEY.RIGHT, "right");
