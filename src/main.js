@@ -49,6 +49,18 @@ var g_resources= [{
     type: "image",
     src: "data/sprites/white_enemy1_28x28.png"
 },{
+    name: "red_powerup",
+    type: "image",
+    src: "data/sprites/red_powerup_32x32.png"
+},{
+    name: "blue_powerup",
+    type: "image",
+    src: "data/sprites/blue_powerup_32x32.png"
+},{
+    name: "green_powerup",
+    type: "image",
+    src: "data/sprites/green_powerup_32x32.png"
+},{
     name: "white_enemy2",
     type: "image",
     src: "data/sprites/white_enemy2_28x28.png"
@@ -109,6 +121,7 @@ var jsApp	=
         me.entityPool.add("blueAcidEntity", BlueAcidEntity);
         me.entityPool.add("greenAcidEntity", GreenAcidEntity);
         me.entityPool.add("coinEntity", CoinEntity);
+        me.entityPool.add("powerupEntity", PowerupEntity);
         me.entityPool.add("Enemy1Entity", Enemy1Entity);
         me.entityPool.add("Enemy2Entity", Enemy2Entity);
       // Key bindings
