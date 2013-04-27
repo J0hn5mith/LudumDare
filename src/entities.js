@@ -80,9 +80,13 @@ var EnemyEntity = me.ObjectEntity.extend({
         this.endX = x + settings.width - settings.spritewidth;
         // size of sprite
  
-        // make him start from the right
-        this.pos.x = x + settings.width - settings.spritewidth;
-        this.walkLeft = true;
+        // make them start from startposition
+        if (!settings.startposition ){
+		this.pos.x = x + settings.width - settings.spritewidth;
+       	}else{
+		this.pos.x = x + settings.startposition * settings.spritewidth;
+	}
+	 this.walkLeft = true;
  
         // walking & jumping speed
         this.setVelocity(4, 6);
@@ -109,7 +113,7 @@ var EnemyEntity = me.ObjectEntity.extend({
     update: function() {
         // do nothing if not visible
         if (!this.inViewport)
-            return false;
+            return true;
  
         if (this.alive) {
             if (this.walkLeft && this.pos.x <= this.startX) {
