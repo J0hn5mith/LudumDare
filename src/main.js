@@ -8,7 +8,19 @@
  **/
 
 // game resources
-var g_resources= [];
+var g_resources= [{
+    name: "test",
+    type: "tmx",
+    src: "data/map/test.tmx"
+},{
+    name: "tileset",
+    type: "image",
+    src: "data/tileset/tileset.png"
+},{
+    name: "black_hero",
+    type: "image",
+    src: "data/sprites/black_hero_64x32.png"
+}];
 
 
 var jsApp	= 
@@ -51,7 +63,13 @@ var jsApp	=
 	{
 		// set the "Play/Ingame" Screen Object
 		me.state.set(me.state.PLAY, new PlayScreen());
-      
+      // Entity pool
+      me.entityPool.add("heroEntity", HeroEntity);
+
+      // Key bindings
+      me.input.bindKey(me.input.KEY.LEFT,  "left");
+      me.input.bindKey(me.input.KEY.RIGHT, "right");
+      me.input.bindKey(me.input.KEY.X,     "jump", true);
       // start the game 
 		me.state.change(me.state.PLAY);
 	}
@@ -64,7 +82,7 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-      // stuff to reset on state change
+      me.levelDirector.loadLevel("test");
 	},
 	
 	
