@@ -5,7 +5,8 @@ var HeroEntity  = me.ObjectEntity.extend({
             this.setVelocity(3,15);
             
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
-
+            this.collidable = true;
+            this.powerUpColor = "none";
                 } 
         ,
   update: function(){
@@ -28,6 +29,18 @@ var HeroEntity  = me.ObjectEntity.extend({
         }
           this.updateMovement();
 
+          // Collision
+          var res = me.game.collide(this);
+          if (res){
+                  if (res.obj.type == me.game.ENEMY_OBJECT){
+                  };
+              if(res.obj.isAcid == true){
+                  if(res.obj.acidColor != this.powerUpColor){
+                     this.die();
+                  } 
+              }
+          }
+
           if (this.vel.x!=0 || this.vel.y!=0) {
               this.parent();
               return true;
@@ -35,7 +48,11 @@ var HeroEntity  = me.ObjectEntity.extend({
 
           return false;
 
-          }
+          },
+
+  die: function(){
+           console.log("The hero died.");
+       }
 });
 
 
@@ -157,23 +174,28 @@ var Enemy2Entity = EnemyEntity.extend({
 
 var AcidEntity  = me.ObjectEntity.extend({
   init: function(x, y, settings){
+            settings.spriteheight = settings.height;
+            settings.spritewidth = settings.width;
             this.parent(x, y, settings);
             this.setVelocity(0,0 );
             this.type = me.game.ENEMY_OBJECT;
             this.collidable = true;
+            this.isAcid = true;
+            
         },
   update: function(){
 
           },
   
   onCollision: function(){
-                
                }
 
 })
-var RedAcidEntity = AcidEntity({
+var RedAcidEntity = AcidEntity.extend({
   init: function(x, y, settings){
+            settings.image = "red_acid256x256"
             this.parent(x, y, settings);
+            this.acidColor="red" //TODO: Replace with enum 
         },
   update: function(){
 
@@ -184,9 +206,12 @@ var RedAcidEntity = AcidEntity({
 
 });
 
-var BlueAcidEntity = AcidEntity({
+var BlueAcidEntity = AcidEntity.extend({
   init: function(x, y, settings){
+            settings.image = "blue_acid256x256"
             this.parent(x, y, settings);
+            this.acidColor="blue" //TODO: Replace with enum 
+
         },
   update: function(){
 
@@ -196,12 +221,14 @@ var BlueAcidEntity = AcidEntity({
                }
 
 });
-var GreenAcidEntity  = me.ObjectEntity.extend({
+
+var GreenAcidEntity  = AcidEntity.extend({
   init: function(x, y, settings){
+            settings.image = "green_acid256x256"
             this.parent(x, y, settings);
+            this.acidColor="green" //TODO: Replace with enum 
         },
   update: function(){
-
           },
   
   onCollision: function(){

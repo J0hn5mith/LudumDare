@@ -25,6 +25,18 @@ var g_resources= [{
     type: "image",
     src: "data/sprites/black_hero_64x32.png"
 },{
+    name: "red_acid256x256",
+    type: "image",
+    src: "data/sprites/red_acid256x256.png"
+},{
+    name: "blue_acid256x256",
+    type: "image",
+    src: "data/sprites/blue_acid256x256.png"
+},{
+    name: "green_acid256X256",
+    type: "image",
+    src: "data/sprites/green_acid256x256.png"
+  },{
     name: "black_enemy1",
     type: "image",
     src: "data/sprites/black_enemy1_28x28.png"
@@ -93,12 +105,12 @@ var jsApp	=
 		me.state.set(me.state.PLAY, new PlayScreen());
       // Entity pool
         me.entityPool.add("heroEntity", HeroEntity);
+        me.entityPool.add("redAcidEntity", RedAcidEntity);
+        me.entityPool.add("blueAcidEntity", BlueAcidEntity);
+        me.entityPool.add("greenAcidEntity", GreenAcidEntity);
         me.entityPool.add("coinEntity", CoinEntity);
         me.entityPool.add("Enemy1Entity", Enemy1Entity);
         me.entityPool.add("Enemy2Entity", Enemy2Entity);
-      //  me.entityPool.add("redAcidEntity", RedAcidEntity);
-     //   me.entityPool.add("blueAcidEntity", BlueAcidEntity);
-      //  me.entityPool.add("greenAcidEntity", GreenAcidEntity);
       // Key bindings
       me.input.bindKey(me.input.KEY.LEFT,  "left");
       me.input.bindKey(me.input.KEY.RIGHT, "right");
