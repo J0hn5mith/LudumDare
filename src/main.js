@@ -41,10 +41,25 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret1.tmx"
 },{
+    name: "secret2",
+    type: "tmx",
+    src: "data/map/secret2.tmx"
+},{
     name: "endmap",
     type: "tmx",
     src: "data/map/endmap.tmx"
 },{
+// audio resources
+    name: "jump",
+    type: "audio",
+    src: "data/audio/",
+    channel: 1
+}, {
+    name: "jump_on_enemy",
+    type: "audio",
+    src: "data/audio/",
+    channel: 2
+}, {
     name: "tileset32x32",
     type: "image",
     src: "data/tileset/tileset32x32.png"
@@ -145,7 +160,7 @@ var jsApp	=
 		}
 				
 		// initialize the "audio"
-		me.audio.init("mp3,ogg");
+		me.audio.init("ogg,mp3,wav");
 		
 		// set all resources to be loaded
 		me.loader.onload = this.loaded.bind(this);

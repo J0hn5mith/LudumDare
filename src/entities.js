@@ -5,7 +5,7 @@ var HeroEntity  = me.ObjectEntity.extend({
             this.parent(x, y, settings);
 
             this.setVelocity(3,15);
-	    this.updateColRect(1, 30, 4, 54);            
+	    this.updateColRect(1, 30, 10, 54);            
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
             this.collidable = true;
             this.powerUpColor = "none";
@@ -27,7 +27,8 @@ var HeroEntity  = me.ObjectEntity.extend({
 
         if(me.input.isKeyPressed('jump')){
             if(!this.jumping && ! this.falling){
-                this.vel.y = - this.maxVel.y * me.timer.tick;
+		me.audio.play("jump", false);
+		this.vel.y = - this.maxVel.y * me.timer.tick;
                 this.jumping = true;
             }
         }
@@ -50,6 +51,7 @@ var HeroEntity  = me.ObjectEntity.extend({
                       }
                       else if(res.obj.name == "enemy2entity"){
                           if ((res.y > 0) && ! this.jumping){
+			      me.audio.play("jump_on_enemy");
                               this.falling = false;
                               this.vel.y = -this.maxVel.y * me.timer.tick;
                               this.jumping = true;
