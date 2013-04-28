@@ -37,9 +37,15 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret2.tmx"
 },{
+<<<<<<< HEAD
+    name: "level1jan",
+    type: "tmx",
+    src: "data/map/level1jan.tmx"
+=======
     name: "secret3",
     type: "tmx",
     src: "data/map/secret3.tmx"
+>>>>>>> 0dcf5002a63e2f30b0302589a03137b2d80e4fc5
 },{
     name: "endmap",
     type: "tmx",
@@ -139,6 +145,22 @@ var g_resources= [{
     name: "menu_screen",
     type: "image",
     src: "data/images/menu_screen960x640.png"
+},{
+    name: "life_icon",
+    type: "image",
+    src: "data/sprites/life_icon32x32.png"
+},{
+    name: "coins_icon",
+    type: "image",
+    src: "data/sprites/coins_icon32x32.png"
+},{
+    name: "credits_icon",
+    type: "image",
+    src: "data/sprites/credits_icon32x32.png"
+},{
+    name: "points_icon",
+    type: "image",
+    src: "data/sprites/points_icon32x32.png"
 }];
 
 
@@ -172,20 +194,6 @@ var jsApp	=
 		me.state.change(me.state.LOADING);
 
         // Init the game stats
-        /*creditsStart = 4;
-        me.gamestat.add("creditsStart", creditsStart);
-        me.gamestat.add("creditsCurrent", creditsStart);
-        lifeStart = 3;
-        me.gamestat.add("lifeStart", lifeStart);
-        me.gamestat.add("lifeCurrent", lifeStart);
-        me.gamestat.add("score", 0);
-        me.gamestat.add("currentLevel", 0);
-	me.gamestat.add("coins",97);
-
-
-
-
-*/
 	},
 	
 	
@@ -230,10 +238,23 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
+
        	// Start Level
         // add a default HUD to the game mngr
         me.game.addHUD(0, 430, 640, 60);
- 
+ 	
+
+	        creditsStart = 4;
+        me.gamestat.add("creditsStart", creditsStart);
+        me.gamestat.add("creditsCurrent", creditsStart);
+        lifeStart = 3;
+        me.gamestat.add("lifeStart", lifeStart);
+        me.gamestat.add("lifeCurrent", lifeStart);
+        me.gamestat.add("score", 0);
+        me.gamestat.add("currentLevel", 0);
+	me.gamestat.add("coins",97);
+
+
         // add a new HUD item
         me.creditStart = 4;
         me.lifeStart = 3;
@@ -241,11 +262,18 @@ var PlayScreen = me.ScreenObject.extend(
         me.game.HUD.addItem("lifes", new ScoreObject(400, 10));
         me.game.HUD.addItem("coins", new ScoreObject(200, 10));
         me.game.HUD.addItem("credits", new ScoreObject(50, 10));
+       // me.game.HUD.addItem("lifeIcon", new HUDImageObject(0,0,me.loader.getImage("life_icon")));
+        me.game.HUD.addItem("pointsIcon", new HUDImageObject(15,30,me.loader.getImage("coins_icon")));
+        me.game.HUD.addItem("creditsIcon", new HUDImageObject(60,0,me.loader.getImage("credits_icon")));
+        me.game.HUD.addItem("pointsIcon", new HUDImageObject(30,0,me.loader.getImage("points_icon")));
+
 	me.game.HUD.updateItemValue("coins", 97);
 	me.game.HUD.updateItemValue("lifes", me.lifeStart);
 	me.game.HUD.updateItemValue("credits", me.creditStart);
 	// make sure everyhting is in the right order
         me.game.sort();
+
+
         me.levelDirector.loadLevel("secret3");
 	},
 	
@@ -261,6 +289,18 @@ var PlayScreen = me.ScreenObject.extend(
    }
 
 });
+
+var HUDImageObject = me.HUD_Item.extend({
+  init: function(x,y,image){
+            this.parent(x,y);
+            this.image = image;
+        },
+
+    draw: function(context, x,y){
+              context.drawImage(this.image,this.pos.x+x,this.pos.y+y);
+          }
+});
+
 
 var GameOverScreen = me.ScreenObject.extend({
     init: function() {
