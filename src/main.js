@@ -149,7 +149,12 @@ var jsApp	=
 		me.state.change(me.state.LOADING);
 
         // Init the game stats
-        me.gamestat.add("credits", 5);
+        creditsStart = 0;
+        me.gamestat.add("creditsStart", creditsStart);
+        me.gamestat.add("creditsCurrent", creditsStart);
+        lifeStart = 1;
+        me.gamestat.add("lifeStart", lifeStart);
+        me.gamestat.add("lifeCurrent", lifeStart);
         me.gamestat.add("score", 0);
         me.gamestat.add("currentLevel", 0);
 
@@ -165,6 +170,8 @@ var jsApp	=
 	{
 		// set the "Play/Ingame" Screen Object
 		me.state.set(me.state.PLAY, new PlayScreen());
+        me.state.set(me.state.GAME_OVER, new GameOverScreen());
+
       // Entity pool
         me.entityPool.add("heroEntity", HeroEntity);
         me.entityPool.add("redAcidEntity", RedAcidEntity);
@@ -191,7 +198,7 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-      me.levelDirector.loadLevel("level1");
+      me.levelDirector.loadLevel("level3");
 	},
 	
 	
@@ -205,6 +212,22 @@ var PlayScreen = me.ScreenObject.extend(
 	
    }
 
+});
+
+var GameOverScreen = me.ScreenObject.extend({
+    init: function() {
+              console.log("Created debug screen");
+              this.parent(true);
+          },
+    onResetEvent: function(){
+              console.log("Reset  debug screen");
+                  },
+    update: function(){
+            },
+    draw: function(){
+          },
+    onDestroyEvent: function(){
+               }
 });
 
 
