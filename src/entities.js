@@ -5,7 +5,7 @@ var HeroEntity  = me.ObjectEntity.extend({
             this.parent(x, y, settings);
 
             this.setVelocity(3,15);
-	    this.updateColRect(1, 30, 4, 60);            
+	    this.updateColRect(1, 30, 4, 54);            
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
             this.collidable = true;
             this.powerUpColor = "none";
