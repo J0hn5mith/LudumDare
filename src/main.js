@@ -229,7 +229,7 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-      me.levelDirector.loadLevel("level4");
+      me.levelDirector.loadLevel("level6");
 	},
 	
 	

@@ -367,8 +367,15 @@ var Enemy2Entity = EnemyEntity.extend({
 
 var AcidEntity  = me.ObjectEntity.extend({
   init: function(x, y, settings){
-            settings.spriteheight = settings.height;
+            ACID_HEIGHT = 8;
+
+           // settings.spriteheight = settings.height;
+            //settings.spritewidth = settings.width;
             settings.spritewidth = settings.width;
+            settings.spriteheight = ACID_HEIGHT;
+            y += (settings.height - ACID_HEIGHT);
+            settings.height = ACID_HEIGHT;
+            console.log(settings);
             this.parent(x, y, settings);
             this.setVelocity(0,0 );
             this.type = me.game.ENEMY_OBJECT;
