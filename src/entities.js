@@ -52,7 +52,8 @@ var HeroEntity  = me.ObjectEntity.extend({
                       else if(res.obj.name == "enemy2entity"){
                           if ((res.y > 0) && ! this.jumping){
 			      me.audio.play("jump_on_enemy");
-                              this.falling = false;
+                              me.game.HUD.updateItemValue("score", 150);
+		   	      this.falling = false;
                               this.vel.y = -this.maxVel.y * me.timer.tick;
                               this.jumping = true;
                           }
@@ -89,7 +90,6 @@ var HeroEntity  = me.ObjectEntity.extend({
           },
   // The hero has no lives left and dies
   die: function(){
-           console.log("The hero died.");
            tmpCredits = me.gamestat.getItemValue("creditsCurrent")
           me.gamestat.setValue("creditsCurrent", --tmpCredits);
            if(tmpCredits < 0){
@@ -134,6 +134,31 @@ var HeroEntity  = me.ObjectEntity.extend({
 
 });
 
+/*-------------- 
+a score HUD Item
+--------------------- */
+ 
+var ScoreObject = me.HUD_Item.extend({
+    init: function(x, y) {
+        // call the parent constructor
+        this.parent(x, y);
+        // create a font
+        this.font = new me.BitmapFont("32x32_font", 32);
+    },
+ 
+    /* -----
+ 
+    draw our score
+ 
+    ------ */
+    draw: function(context, x, y) {
+        this.font.draw(context, this.value, this.pos.x + x, this.pos.y + y);
+    }
+ 
+});
+
+
+
 
 /*----------------
  a Coin entity
@@ -150,15 +175,20 @@ var CoinEntity = me.CollectableEntity.extend({
     // an object is touched by something (here collected)
     onCollision: function() {
         // do something when collected
+	// give some score & coins and handle lifes
+    	me.game.HUD.updateItemValue("score", 100);
+	if(me.game.HUD.getItemValue("coins") == 99){
+
+	me.game.HUD.updateItemValue("credits", 1); 
+	me.game.HUD.setItemValue("coins",0);
+	} else{
+	me.game.HUD.updateItemValue("coins", 1); }
  
         // make sure it cannot be collected "again"
         this.collidable = false;
         // remove it
         me.game.remove(this);
-    }
- 
-});
-
+    } }); 
 /*----------------
  a Powerup entity
 ------------------------ */
