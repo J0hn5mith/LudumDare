@@ -36,7 +36,6 @@ var HeroEntity  = me.ObjectEntity.extend({
           // Collision
           var res = me.game.collide(this);
           if (res){
-                console.log(res);
               // Handle collision with acid
               if(res.obj.isAcid == true){
                   if(res.obj.acidColor != this.powerUpColor){
@@ -60,6 +59,14 @@ var HeroEntity  = me.ObjectEntity.extend({
                           }
                       }
                   }
+
+            // Handle collision with power up
+            if(res.obj.type == "powerup"){
+
+                this.getPowerUp(res.obj.color);
+                console.log("got powerup");
+                
+            };
 
           }
 
@@ -95,10 +102,18 @@ var HeroEntity  = me.ObjectEntity.extend({
              },
 
   // Hero gets a powerup
-  getPowerUp: function(powerUp){
-                this.powerUpColor = powerUp.color;
-              }
+  // @param color string with the color of the powerup
+  getPowerUp: function(color){
+                  this.powerUpColor = color;
+                  console.debug(this);
+                  // Set image
+                  if(color == "red"){
+                      
+                  } else if(color == "blue"){
+                  } else if(color == "red"){
 
+                  }
+              }
 
 });
 
@@ -136,7 +151,11 @@ var PowerupEntity = me.CollectableEntity.extend({
     init: function(x, y, settings) {
         // call the parent constructor
         this.parent(x, y, settings);
+        this.powerupcolor = settings.color;
 
+        // Power up parameters
+        this.type = "powerup";
+        
 
         this.startX = x;
         this.endX = x + settings.width - settings.spritewidth;
