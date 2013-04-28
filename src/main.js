@@ -120,6 +120,10 @@ var g_resources= [{
     name: "32x32_font",
     type: "image",
     src: "data/font/32x32_font.png"
+},{
+    name: "game_over_screen320x480",
+    type: "image",
+    src: "data/images/game_over_screen960x640.png"
 }];
 
 
@@ -226,6 +230,7 @@ var GameOverScreen = me.ScreenObject.extend({
               this.textLabel = null;
               this.smallFontRatio = 0.6;
               this.largeFontSize = 32;
+              this.bgImage = null;
           },
     onResetEvent: function(){
               console.log("Reset  debug screen");
@@ -233,6 +238,7 @@ var GameOverScreen = me.ScreenObject.extend({
                   this.font = new me.BitmapFont("32x32_font", 32);
                   this.font.set("left");
                   this.textLabel = "GAME OVER";
+                  this.bgImage = me.loader.getImage("game_over_screen320x480")
 
                   this.isLoaded = true;
                 }
@@ -246,6 +252,9 @@ me.state.change(me.state.PLAY);
 return true;
             },
     draw: function(context){
+              // Draw BG Image
+              console.log(this.bgImage);
+              context.drawImage(this.bgImage, 0, 0);
               // Draw the game over label
               // TODO Automatic spacing
               labelWidth = this.font.measureText(context, this.textLabel);
