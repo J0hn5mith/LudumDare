@@ -241,6 +241,15 @@ var EnemyEntity = me.ObjectEntity.extend({
         // call the parent constructor
         this.parent(x, y, settings);
  
+        // Set velocity
+
+        if(settings.velocity){
+            this.setVelocity(settings.velocity, settings.velocity6);
+        }
+        else{
+            this.setVelocity(6,6);
+        }
+
         this.startX = x;
         this.endX = x + settings.width - settings.spritewidth;
         // size of sprite
@@ -252,9 +261,6 @@ var EnemyEntity = me.ObjectEntity.extend({
 		this.pos.x = x + settings.startposition * settings.spritewidth;
 	}
 	 this.walkLeft = true;
- 
-        // walking & jumping speed
-        this.setVelocity(4, 6);
  
         // make it collidable
         this.collidable = true;
