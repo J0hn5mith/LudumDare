@@ -139,6 +139,10 @@ var g_resources= [{
     name: "game_over_screen320x480",
     type: "image",
     src: "data/images/game_over_screen960x640.png"
+},{
+    name: "menu_screen",
+    type: "image",
+    src: "data/images/menu_screen960x640.png"
 }];
 
 
@@ -194,6 +198,7 @@ var jsApp	=
 		// set the "Play/Ingame" Screen Object
 		me.state.set(me.state.PLAY, new PlayScreen());
         me.state.set(me.state.GAME_OVER, new GameOverScreen());
+        me.state.set(me.state.MENU, new TitleScreen());
 
       // Entity pool
         me.entityPool.add("heroEntity", HeroEntity);
@@ -210,7 +215,7 @@ var jsApp	=
       me.input.bindKey(me.input.KEY.l, "right");
       me.input.bindKey(me.input.KEY.UP,     "jump", true);
       // start the game 
-		me.state.change(me.state.PLAY);
+		me.state.change(me.state.MENU);
 	}
 
 }; // jsApp
@@ -261,32 +266,65 @@ var GameOverScreen = me.ScreenObject.extend({
                   },
 
     update: function(){
-if (me.input.isKeyPressed('enter')) {
-me.state.change(me.state.PLAY);
-}
+                if (me.input.isKeyPressed('enter')) {
+                    me.state.change(me.state.PLAY);
+                }
 return true;
             },
     draw: function(context){
               // Draw BG Image
-              console.log(this.bgImage);
-              context.drawImage(this.bgImage, 0, 0);
+              console.log(context.canvas.width + "x"+ context.canvas.height);
+              context.drawImage(this.bgImage,0,0, context.canvas.width, context.canvas.height);
+              console.log(context);
               // Draw the game over label
               // TODO Automatic spacing
               labelWidth = this.font.measureText(context, this.textLabel);
               xPos = (context.rect.hwidth )/2;
               xPos = 0;
               this.font.resize(1.0);
-              this.font.draw(context, this.textLabel, 165, 240);
+              this.font.draw(context, this.textLabel, 105, 260);
               this.font.resize(this.smallFontRatio);
-              this.font.draw(context, "PRESS ENTER TO CONTINUE", 115, 300);
+              this.font.draw(context, "PRESS ENTER TO CONTINUE", 45, 320);
 
           },
-    onDestroyEvent: function(){ me.input.unbindKey(me.input.KEY.ENTER); } 
+          onDestroyEvent: function(){ me.input.unbindKey(me.input.KEY.ENTER); } 
 });
 
 
-//bootstrap :)
-window.onReady(function() 
-{
-	jsApp.onload();
-});
+var TitleScreen = me.ScreenObject.extend({
+    init: function() {
+              this.parent(true);
+              this.bgImage = null;
+          },
+
+    onResetEvent: function() {
+        if(!this.bgImage){
+            this.bgImage = me.loader.getImage("menu_screen");
+            me.input.bindKey(me.input.KEY.ENTER, 'enter', true);
+        }
+                  },
+
+
+    update: function() {
+                if (me.input.isKeyPressed('enter')) {
+                    me.state.change(me.state.PLAY);
+                }
+                },
+
+    draw: function(context) {
+        cWidth = context.canvas.width;
+        cHeight = context.canvas.height;
+        context.drawImage(this.bgImage,0,0,cWidth, cHeight);
+          },
+
+
+            onDestroyEvent: function() {
+                            
+                            }
+            });
+
+        //bootstrap :)
+        window.onReady(function() 
+                {
+                    jsApp.onload();
+                });
