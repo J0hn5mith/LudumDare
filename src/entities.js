@@ -244,7 +244,7 @@ var EnemyEntity = me.ObjectEntity.extend({
         // Set velocity
 
         if(settings.velocity){
-            this.setVelocity(settings.velocity, settings.velocity6);
+            this.setVelocity(settings.velocity, 6);
         }
         else{
             this.setVelocity(6,6);

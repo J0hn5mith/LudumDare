@@ -29,7 +29,7 @@
   <object name="blueAcidEntity" x="0" y="0" width="256" height="32"/>
   <object name="greenAcidEntity" x="0" y="64" width="256" height="32"/>
  </objectgroup>
- <objectgroup name="Enemy" width="40" height="20">
+ <objectgroup name="Enemy" width="40" height="20" visible="0">
   <object name="Enemy1Entity" x="128" y="256" width="256" height="32">
    <properties>
     <property name="image" value="black_enemy1"/>
