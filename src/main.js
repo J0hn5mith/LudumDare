@@ -37,15 +37,9 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret2.tmx"
 },{
-<<<<<<< HEAD
-    name: "level1jan",
-    type: "tmx",
-    src: "data/map/level1jan.tmx"
-=======
     name: "secret3",
     type: "tmx",
     src: "data/map/secret3.tmx"
->>>>>>> 0dcf5002a63e2f30b0302589a03137b2d80e4fc5
 },{
     name: "endmap",
     type: "tmx",

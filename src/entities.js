@@ -91,15 +91,9 @@ var HeroEntity  = me.ObjectEntity.extend({
           },
   // The hero has no lives left and dies
   die: function(){
-<<<<<<< HEAD
            tmpCredits = me.gamestat.getItemValue("creditsCurrent")
           me.gamestat.setValue("creditsCurrent", --tmpCredits);
            if(tmpCredits < 0){
-=======
-           console.log("The hero died.");
-           me.game.HUD.updateItemValue("credits", -1);   
-           if(me.game.HUD.getItemValue("credits") < 0){
->>>>>>> 0dcf5002a63e2f30b0302589a03137b2d80e4fc5
                console.log("No credits left");
                me.state.change(me.state.GAME_OVER);
               
