@@ -229,7 +229,6 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-<<<<<<< HEAD
        	// Start Level
 	 me.levelDirector.loadLevel("level1");
         // add a default HUD to the game mngr
@@ -246,9 +245,7 @@ var PlayScreen = me.ScreenObject.extend(
         
 	// make sure everyhting is in the right order
         me.game.sort();
-=======
       me.levelDirector.loadLevel("level6");
->>>>>>> ab36ad1231e1f878bb9e0382aa52cc3c43b38b42
 	},
 	
 	
