@@ -27,15 +27,15 @@ var g_resources= [{
 },{
     name: "level5",
     type: "tmx",
-    src: "data/map/level4.tmx"
+    src: "data/map/level5.tmx"
 },{
     name: "level6",
     type: "tmx",
-    src: "data/map/level4.tmx"
+    src: "data/map/level6.tmx"
 },{
     name: "level7",
     type: "tmx",
-    src: "data/map/level4.tmx"
+    src: "data/map/level7.tmx"
 },{
     name: "secret1",
     type: "tmx",
@@ -202,7 +202,11 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
+<<<<<<< HEAD
       me.levelDirector.loadLevel("level3");
+=======
+      me.levelDirector.loadLevel("level5");
+>>>>>>> b38bdfaee1da58b4c136752388c65cb4c9c67ec0
 	},
 	
 	
