@@ -71,6 +71,12 @@ var HeroEntity  = me.ObjectEntity.extend({
 
           }
 
+          
+          // Check if hero de fall from the map
+          if(this.pos.y + this.height > me.game.currentLevel.height * me.game.currentLevel.tileheight){
+              this.die();
+          }
+          
           if (this.vel.x!=0 || this.vel.y!=0) {
               this.parent();
               return true;
@@ -85,6 +91,7 @@ var HeroEntity  = me.ObjectEntity.extend({
            this.credits--;
            if(this.credits < 0){
                me.state.set(me.state.GAME_OVER);
+               // TODO: command to continue
            }
            me.levelDirector.reloadLevel()
        },
