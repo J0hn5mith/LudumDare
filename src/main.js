@@ -17,6 +17,30 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/level2.tmx"
 },{
+    name: "level3",
+    type: "tmx",
+    src: "data/map/level3.tmx"
+},{
+    name: "level4",
+    type: "tmx",
+    src: "data/map/level4.tmx"
+},{
+    name: "level5",
+    type: "tmx",
+    src: "data/map/level4.tmx"
+},{
+    name: "level6",
+    type: "tmx",
+    src: "data/map/level4.tmx"
+},{
+    name: "level7",
+    type: "tmx",
+    src: "data/map/level4.tmx"
+},{
+    name: "secret1",
+    type: "tmx",
+    src: "data/map/secret1.tmx"
+},{
     name: "tileset32x32",
     type: "image",
     src: "data/tileset/tileset32x32.png"
@@ -24,6 +48,10 @@ var g_resources= [{
     name: "black_hero",
     type: "image",
     src: "data/sprites/black_hero_64x32.png"
+},{
+    name: "white_hero",
+    type: "image",
+    src: "data/sprites/white_hero_64x32.png"
 },{
     name: "red_acid256x256",
     type: "image",
