@@ -41,6 +41,10 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret1.tmx"
 },{
+    name: "endmap",
+    type: "tmx",
+    src: "data/map/endmap.tmx"
+},{
     name: "tileset32x32",
     type: "image",
     src: "data/tileset/tileset32x32.png"
