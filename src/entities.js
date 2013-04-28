@@ -259,7 +259,7 @@ var EnemyEntity = me.ObjectEntity.extend({
             this.setVelocity(settings.velocity, 6);
         }
         else{
-            this.setVelocity(6,6);
+            this.setVelocity(4,6);
         }
 
         this.startX = x;
