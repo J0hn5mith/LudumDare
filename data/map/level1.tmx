@@ -16,6 +16,17 @@
    </properties>
   </tile>
  </tileset>
+ <imagelayer name="Background" width="40" height="20">
+  <image source="../backgroundImages/Background04.png"/>
+ </imagelayer>
+ <imagelayer name="Paralax1" width="40" height="20">
+  <image source="../paralax/Berg04.png"/>
+  <properties>
+   <property name="epeat" value="false"/>
+   <property name="ratio" value="0.35"/>
+   <property name="x" value="200"/>
+  </properties>
+ </imagelayer>
  <objectgroup name="Hero" width="40" height="20">
   <object name="heroEntity" x="0" y="96" width="32" height="64">
    <properties>
