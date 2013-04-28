@@ -37,6 +37,10 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret2.tmx"
 },{
+    name: "secret3",
+    type: "tmx",
+    src: "data/map/secret3.tmx"
+},{
     name: "endmap",
     type: "tmx",
     src: "data/map/endmap.tmx"
@@ -242,7 +246,7 @@ var PlayScreen = me.ScreenObject.extend(
 	me.game.HUD.updateItemValue("credits", me.creditStart);
 	// make sure everyhting is in the right order
         me.game.sort();
-        me.levelDirector.loadLevel("level1");
+        me.levelDirector.loadLevel("secret3");
 	},
 	
 	
