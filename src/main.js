@@ -1,11 +1,3 @@
-/*!
- * 
- *   melonJS
- *   http://www.melonjs.org
- *		
- *   Step by step game creation tutorial
- *
- **/
 
 // game resources
 var g_resources= [{
@@ -45,9 +37,15 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret2.tmx"
 },{
+<<<<<<< HEAD
     name: "level1jan",
     type: "tmx",
     src: "data/map/level1jan.tmx"
+=======
+    name: "secret3",
+    type: "tmx",
+    src: "data/map/secret3.tmx"
+>>>>>>> 0dcf5002a63e2f30b0302589a03137b2d80e4fc5
 },{
     name: "endmap",
     type: "tmx",
@@ -196,7 +194,6 @@ var jsApp	=
 		me.state.change(me.state.LOADING);
 
         // Init the game stats
-
 	},
 	
 	
@@ -243,7 +240,6 @@ var PlayScreen = me.ScreenObject.extend(
 	{	
 
        	// Start Level
-	 me.levelDirector.loadLevel("level1");
         // add a default HUD to the game mngr
         me.game.addHUD(0, 430, 640, 60);
  	
@@ -260,8 +256,10 @@ var PlayScreen = me.ScreenObject.extend(
 
 
         // add a new HUD item
+        me.creditStart = 4;
+        me.lifeStart = 3;
         me.game.HUD.addItem("score", new ScoreObject(620, 10));
-        me.game.HUD.addItem("life", new ScoreObject(400, 10));
+        me.game.HUD.addItem("lifes", new ScoreObject(400, 10));
         me.game.HUD.addItem("coins", new ScoreObject(200, 10));
         me.game.HUD.addItem("credits", new ScoreObject(50, 10));
        // me.game.HUD.addItem("lifeIcon", new HUDImageObject(0,0,me.loader.getImage("life_icon")));
@@ -270,13 +268,13 @@ var PlayScreen = me.ScreenObject.extend(
         me.game.HUD.addItem("pointsIcon", new HUDImageObject(30,0,me.loader.getImage("points_icon")));
 
 	me.game.HUD.updateItemValue("coins", 97);
-	
-        
+	me.game.HUD.updateItemValue("lifes", me.lifeStart);
+	me.game.HUD.updateItemValue("credits", me.creditStart);
 	// make sure everyhting is in the right order
         me.game.sort();
-      me.levelDirector.loadLevel("level6");
 
 
+        me.levelDirector.loadLevel("secret3");
 	},
 	
 	
