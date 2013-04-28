@@ -90,10 +90,15 @@ var HeroEntity  = me.ObjectEntity.extend({
   // The hero has no lives left and dies
   die: function(){
            console.log("The hero died.");
-           this.credits--;
-           if(this.credits < 0){
-               me.state.set(me.state.GAME_OVER);
+           tmpCredits = me.gamestat.getItemValue("creditsCurrent")
+          me.gamestat.setValue("creditsCurrent", --tmpCredits);
+           if(tmpCredits < 0){
+               console.log("No credits left");
+               me.state.change(me.state.GAME_OVER);
                // TODO: command to continue
+           }
+           else{
+               me.gamestat.setValue("lifeCurrent", me.gamestat.getItemValue("lifeStart"));
            }
            me.levelDirector.reloadLevel()
        },
@@ -101,13 +106,13 @@ var HeroEntity  = me.ObjectEntity.extend({
   // The hero gets  damage
   getDamage: function(){
                  if(!this.isFlickering()){
-                    this.life--;
-                    if(this.life <= 0)  {
+                  tmpLife = me.gamestat.getItemValue("lifeCurrent");
+                   me.gamestat.setValue("lifeCurrent", --tmpLife); 
+                    if(tmpLife <= 0)  {
                         this.die();
                         return;
                     }
                     this.flicker(this.FLICKER_TIME);
-                    console.log(this);
                  }
              },
 
@@ -256,7 +261,7 @@ var EnemyEntity = me.ObjectEntity.extend({
             this.setVelocity(settings.velocity, 6);
         }
         else{
-            this.setVelocity(6,6);
+            this.setVelocity(4,6);
         }
 
         this.startX = x;
