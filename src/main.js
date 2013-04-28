@@ -116,6 +116,10 @@ var g_resources= [{
     name: "black_coin",
     type: "image",
     src: "data/sprites/black_coin_32x32.png"
+},{
+    name: "32x32_font",
+    type: "image",
+    src: "data/font/32x32_font.png"
 }];
 
 
@@ -216,18 +220,44 @@ var PlayScreen = me.ScreenObject.extend(
 
 var GameOverScreen = me.ScreenObject.extend({
     init: function() {
-              console.log("Created debug screen");
               this.parent(true);
+              this.font = null;
+              this.isLoaded = false;
+              this.textLabel = null;
+              this.smallFontRatio = 0.6;
+              this.largeFontSize = 32;
           },
     onResetEvent: function(){
               console.log("Reset  debug screen");
+                if(!this.isLoaded  ){
+                  this.font = new me.BitmapFont("32x32_font", 32);
+                  this.font.set("left");
+                  this.textLabel = "GAME OVER";
+
+                  this.isLoaded = true;
+                }
+                me.input.bindKey(me.input.KEY.ENTER, "enter", true);
                   },
+
     update: function(){
+if (me.input.isKeyPressed('enter')) {
+me.state.change(me.state.PLAY);
+}
+return true;
             },
-    draw: function(){
+    draw: function(context){
+              // Draw the game over label
+              // TODO Automatic spacing
+              labelWidth = this.font.measureText(context, this.textLabel);
+              xPos = (context.rect.hwidth )/2;
+              xPos = 0;
+              this.font.resize(1.0);
+              this.font.draw(context, this.textLabel, 165, 240);
+              this.font.resize(this.smallFontRatio);
+              this.font.draw(context, "PRESS ENTER TO CONTINUE", 115, 300);
+
           },
-    onDestroyEvent: function(){
-               }
+    onDestroyEvent: function(){ me.input.unbindKey(me.input.KEY.ENTER); } 
 });
 
 
