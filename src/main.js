@@ -243,7 +243,7 @@ var PlayScreen = me.ScreenObject.extend(
 
        	// Start Level
         // add a default HUD to the game mngr
-        me.game.addHUD(0, 430, 640, 60);
+        me.game.addHUD(0, 0, 640, 480);
  	
 
 	        creditsStart = 4;
@@ -260,14 +260,24 @@ var PlayScreen = me.ScreenObject.extend(
         // add a new HUD item
         me.creditStart = 4;
         me.lifeStart = 3;
-        me.game.HUD.addItem("score", new HUDImageObject(620,10,me.loader.getImage("points_icon")));
-        me.game.HUD.addItem("lifes", new HUDImageObject(400,10,me.loader.getImage("life_icon")));
-        me.game.HUD.addItem("coins", new HUDImageObject(200,10,me.loader.getImage("coins_icon")));
-        me.game.HUD.addItem("credits", new HUDImageObject(50,10,me.loader.getImage("credits_icon")));
+        xOffset2Row = 440; 
+        yOffsetCredits = 10;
+        yOffsetLifes = 120;
+        yOffsetCoins = 230;
+        yOffsetPoints = 370;
+        xName = 400;
+        yName = 10;
+        me.game.HUD.addItem("score", new HUDImageObject(yOffsetPoints,xOffset2Row,me.loader.getImage("points_icon")));
+        me.game.HUD.addItem("lifes", new HUDImageObject(yOffsetLifes,xOffset2Row,me.loader.getImage("life_icon")));
+        me.game.HUD.addItem("coins", new HUDImageObject(yOffsetCoins,xOffset2Row,me.loader.getImage("coins_icon")));
+        me.game.HUD.addItem("credits", new HUDImageObject(yOffsetCredits,xOffset2Row,me.loader.getImage("credits_icon")));
+        me.game.HUD.addItem("levelName", new LabelObject(xName, yName));
 
-	me.game.HUD.updateItemValue("coins", 97);
+	//me.game.HUD.setItemValue("levelName","Level name" );
+	me.game.HUD.updateItemValue("coins",0 );
 	me.game.HUD.updateItemValue("lifes", me.lifeStart);
 	me.game.HUD.updateItemValue("credits", me.creditStart);
+    me.levelName = "level";
 
 	// make sure everything is in the right order
         me.game.sort();
@@ -294,6 +304,32 @@ var PlayScreen = me.ScreenObject.extend(
 a score HUD Item
 --------------------- */
  
+
+var LabelObject = me.HUD_Item.extend({
+    
+    init: function(x, y) {
+        // call the parent constructor
+        this.parent(x, y);
+        // create a font
+        this.font = new me.BitmapFont("32x32_font", 32);
+        this.font.set("left");
+    },
+ 
+    /* -----
+     *
+ 
+    draw our HUD
+ 
+    ------ */
+    draw: function(context, x, y) {
+              levelName = me.levelName.toString();
+              console.log("Level name: " + levelName);
+              //levelName = "FOO";
+        this.font.draw(context,levelName.toString(), this.pos.x + x, this.pos.y + y);
+    }
+ 
+});
+
 var ScoreObject = me.HUD_Item.extend({
     init: function(x, y) {
         // call the parent constructor
