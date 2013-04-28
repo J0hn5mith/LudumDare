@@ -45,6 +45,10 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret2.tmx"
 },{
+    name: "level1jan",
+    type: "tmx",
+    src: "data/map/level1jan.tmx"
+},{
     name: "endmap",
     type: "tmx",
     src: "data/map/endmap.tmx"
@@ -229,7 +233,7 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-      me.levelDirector.loadLevel("level6");
+      me.levelDirector.loadLevel("level1");
 	},
 	
 	
