@@ -68,7 +68,8 @@ var HeroEntity  = me.ObjectEntity.extend({
 
                 console.log(res.obj);
                 this.getPowerUp(res.obj.powerupcolor);
-                console.log("got powerup");
+      
+	          console.log("got powerup");
                 
             };
 
@@ -91,15 +92,24 @@ var HeroEntity  = me.ObjectEntity.extend({
   // The hero has no lives left and dies
   die: function(){
            console.log("The hero died.");
-           tmpCredits = me.gamestat.getItemValue("creditsCurrent")
-          me.gamestat.setValue("creditsCurrent", --tmpCredits);
-           if(tmpCredits < 0){
+           me.game.HUD.updateItemValue("credits", -1);   
+           if(me.game.HUD.getItemValue("credits") < 0){
                console.log("No credits left");
                me.state.change(me.state.GAME_OVER);
-               // TODO: command to continue
+              
+		//disable HUD
+		
+		//me.game.HUD.removeItem("score");
+		me.game.HUD.removeItem("lifes");
+		me.game.HUD.removeItem("coins");
+		me.game.HUD.removeItem("credits");
+		 
+		// TODO: command to continue
            }
            else{
-               me.gamestat.setValue("lifeCurrent", me.gamestat.getItemValue("lifeStart"));
+		console.log("lifelog");
+		console.log(me.lifeStart);
+               me.game.HUD.setItemValue("lifes", me.lifeStart);
            }
            me.levelDirector.reloadLevel()
        },
@@ -107,9 +117,8 @@ var HeroEntity  = me.ObjectEntity.extend({
   // The hero gets  damage
   getDamage: function(){
                  if(!this.isFlickering()){
-                  tmpLife = me.gamestat.getItemValue("lifeCurrent");
-                   me.gamestat.setValue("lifeCurrent", --tmpLife); 
-                    if(tmpLife <= 0)  {
+                 me.game.HUD.updateItemValue("lifes", -1);   
+		 if(me.game.HUD.getItemValue("lifes") <= 0)  {
                         this.die();
                         return;
                     }
@@ -149,7 +158,7 @@ var ScoreObject = me.HUD_Item.extend({
  
     /* -----
  
-    draw our score
+    draw our HUD
  
     ------ */
     draw: function(context, x, y) {
@@ -179,11 +188,10 @@ var CoinEntity = me.CollectableEntity.extend({
 	// give some score & coins and handle lifes
     	me.game.HUD.updateItemValue("score", 100);
 	if(me.game.HUD.getItemValue("coins") == 99){
-
-	me.game.HUD.updateItemValue("credits", 1); 
-	me.game.HUD.setItemValue("coins",0);
+		me.game.HUD.updateItemValue("credits", 1); 
+		me.game.HUD.setItemValue("coins",0);
 	} else{
-	me.game.HUD.updateItemValue("coins", 1); }
+		me.game.HUD.updateItemValue("coins", 1); }
  
         // make sure it cannot be collected "again"
         this.collidable = false;
