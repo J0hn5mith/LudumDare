@@ -57,6 +57,18 @@ var g_resources= [{
     type: "image",
     src: "data/sprites/white_hero_64x32.png"
 },{
+    name: "red_hero",
+    type: "image",
+    src: "data/sprites/red_hero_64x32.png"
+},{
+    name: "green_hero",
+    type: "image",
+    src: "data/sprites/green_hero_64x32.png"
+},{
+    name: "blue_hero",
+    type: "image",
+    src: "data/sprites/blue_hero_64x32.png"
+},{
     name: "red_acid256x256",
     type: "image",
     src: "data/sprites/red_acid256x256.png"
@@ -179,7 +191,7 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-      me.levelDirector.loadLevel("level1");
+      me.levelDirector.loadLevel("level11111111111");
 	},
 	
 	
