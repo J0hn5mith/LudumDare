@@ -36,13 +36,38 @@ var HeroEntity  = me.ObjectEntity.extend({
           // Collision
           var res = me.game.collide(this);
           if (res){
-                  if (res.obj.type == me.game.ENEMY_OBJECT){
-                  };
+              // Handle collision with acid
               if(res.obj.isAcid == true){
                   if(res.obj.acidColor != this.powerUpColor){
                      this.getDamage();
                   } 
               }
+
+              // Handle collision with enemy
+                  if (res.obj.type == me.game.ENEMY_OBJECT){
+                      if(res.obj.name == "enemy1entity"){
+                          this.getDamage();
+                      }
+                      else if(res.obj.name == "enemy2entity"){
+                          if ((res.y > 0) && ! this.jumping){
+                              this.falling = false;
+                              this.vel.y = -this.maxVel.y * me.timer.tick;
+                              this.jumping = true;
+                          }
+                          else{
+                              this.getDamage();
+                          }
+                      }
+                  }
+
+            // Handle collision with power up
+            if(res.obj.type == "powerup"){
+
+                this.getPowerUp(res.obj.color);
+                console.log("got powerup");
+                
+            };
+
           }
 
           if (this.vel.x!=0 || this.vel.y!=0) {
@@ -77,10 +102,18 @@ var HeroEntity  = me.ObjectEntity.extend({
              },
 
   // Hero gets a powerup
-  getPowerUp: function(powerUp){
-                this.powerUpColor = powerUp.color;
-              }
+  // @param color string with the color of the powerup
+  getPowerUp: function(color){
+                  this.powerUpColor = color;
+                  console.debug(this);
+                  // Set image
+                  if(color == "red"){
+                      
+                  } else if(color == "blue"){
+                  } else if(color == "red"){
 
+                  }
+              }
 
 });
 
@@ -118,7 +151,11 @@ var PowerupEntity = me.CollectableEntity.extend({
     init: function(x, y, settings) {
         // call the parent constructor
         this.parent(x, y, settings);
+        this.powerupcolor = settings.color;
 
+        // Power up parameters
+        this.type = "powerup";
+        
 
         this.startX = x;
         this.endX = x + settings.width - settings.spritewidth;
@@ -220,6 +257,9 @@ var EnemyEntity = me.ObjectEntity.extend({
         this.collidable = true;
         // make it a enemy object
         this.type = me.game.ENEMY_OBJECT;
+
+        // Life
+        this.life = 1;
  
     },
  
@@ -264,20 +304,42 @@ var EnemyEntity = me.ObjectEntity.extend({
             return true;
         }
         return false;
-    }
+    },
+
+    getDamage: function(){
+                   this.life--;
+                   if(this.life <=0){
+                       this.collidable = false;
+                        me.game.remove(this);
+                   }
+               }
 });
 
 var Enemy1Entity = EnemyEntity.extend({
   init: function(x, y, settings){
             this.parent(x, y, settings);
-               }
+               },
 
+    // call by the engine when colliding with another object
+    // obj parameter corresponds to the other object (typically the player) touching this one
+    onCollision: function(res, obj) {
+ 
+    }
 });
 var Enemy2Entity = EnemyEntity.extend({
   init: function(x, y, settings){
             this.parent(x, y, settings);
-               }
+               },
 
+    onCollision: function(res, obj) {
+ 
+        // res.y >0 means touched by something on the bottom
+        // which mean at top position for this one
+        if (this.alive && (res.y > 0) && obj.falling) {
+            this.flicker(45);
+            this.getDamage(1);
+        }
+    }
 });
 
 var AcidEntity  = me.ObjectEntity.extend({
