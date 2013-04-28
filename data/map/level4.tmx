@@ -210,30 +210,37 @@
  </objectgroup>
  <objectgroup name="Powerups" width="40" height="20"/>
  <objectgroup name="Enemies" width="40" height="20">
-  <object name="Enemy1Entity" x="32" y="416" width="128" height="32">
+  <object name="Enemy1Entity" x="448" y="416" width="160" height="32">
    <properties>
     <property name="image" value="black_enemy1"/>
     <property name="spritewidth" value="32"/>
     <property name="startposition" value="1"/>
    </properties>
   </object>
-  <object name="Enemy2Entity" x="448" y="416" width="160" height="32">
+  <object name="Enemy2Entity" x="704" y="416" width="128" height="32">
    <properties>
     <property name="image" value="black_enemy2"/>
     <property name="spritewidth" value="32"/>
     <property name="startposition" value="1"/>
    </properties>
   </object>
-  <object name="Enemy1Entity" x="256" y="416" width="160" height="32">
+  <object name="Enemy2Entity" x="32" y="416" width="128" height="32">
    <properties>
-    <property name="image" value="black_enemy1"/>
+    <property name="image" value="black_enemy2"/>
     <property name="spritewidth" value="32"/>
-    <property name="startposition" value="4"/>
+    <property name="startposition" value="1"/>
    </properties>
   </object>
-  <object name="Enemy1Entity" x="704" y="416" width="128" height="32">
+  <object name="Enemy2Entity" x="256" y="416" width="160" height="32">
    <properties>
-    <property name="image" value="black_enemy1"/>
+    <property name="image" value="black_enemy2"/>
+    <property name="spritewidth" value="32"/>
+    <property name="startposition" value="1"/>
+   </properties>
+  </object>
+  <object name="Enemy2Entity" x="992" y="416" width="128" height="32">
+   <properties>
+    <property name="image" value="black_enemy2"/>
     <property name="spritewidth" value="32"/>
     <property name="startposition" value="1"/>
    </properties>
