@@ -172,15 +172,15 @@ var jsApp	=
 		me.state.change(me.state.LOADING);
 
         // Init the game stats
-        creditsStart = 0;
+        creditsStart = 4;
         me.gamestat.add("creditsStart", creditsStart);
         me.gamestat.add("creditsCurrent", creditsStart);
-        lifeStart = 1;
+        lifeStart = 3;
         me.gamestat.add("lifeStart", lifeStart);
         me.gamestat.add("lifeCurrent", lifeStart);
         me.gamestat.add("score", 0);
         me.gamestat.add("currentLevel", 0);
-
+	me.gamestat.add("coins",97);
 	},
 	
 	
@@ -221,7 +221,22 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-      me.levelDirector.loadLevel("level4");
+       	// Start Level
+	 me.levelDirector.loadLevel("level1");
+        // add a default HUD to the game mngr
+        me.game.addHUD(0, 430, 640, 60);
+ 
+        // add a new HUD item
+        me.game.HUD.addItem("score", new ScoreObject(620, 10));
+        me.game.HUD.addItem("life", new ScoreObject(400, 10));
+        me.game.HUD.addItem("coins", new ScoreObject(200, 10));
+        me.game.HUD.addItem("credits", new ScoreObject(50, 10));
+
+	me.game.HUD.updateItemValue("coins", 97);
+	
+        
+	// make sure everyhting is in the right order
+        me.game.sort();
 	},
 	
 	
