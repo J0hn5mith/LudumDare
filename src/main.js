@@ -187,7 +187,7 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-      me.levelDirector.loadLevel("level3");
+      me.levelDirector.loadLevel("level11111111111");
 	},
 	
 	
