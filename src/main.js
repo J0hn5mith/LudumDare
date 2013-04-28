@@ -199,6 +199,9 @@ var jsApp	=
 		me.state.set(me.state.PLAY, new PlayScreen());
         me.state.set(me.state.GAME_OVER, new GameOverScreen());
         me.state.set(me.state.MENU, new TitleScreen());
+        // Set fade
+         //me.state.transition("fade", "#000000", 1000);
+         // If fading is set, state change does not work properly
 
       // Entity pool
         me.entityPool.add("heroEntity", HeroEntity);
