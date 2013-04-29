@@ -289,7 +289,7 @@ var PlayScreen = me.ScreenObject.extend(
     onDestroyEvent: function()
 {
 
-                        me.game.HUD.removeItem("levelName");
+                       // me.game.HUD.removeItem("levelName");
     me.levelDirector.loadLevel("level1");
 },
     update: function()
@@ -376,7 +376,7 @@ var PlayScreen = me.ScreenObject.extend(
 	me.audio.playTrack("sterni");	
 
 
-        me.levelDirector.loadLevel("level1");
+        me.levelDirector.loadLevel("level2");
 	},
 	
 	
