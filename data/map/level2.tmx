@@ -16,6 +16,9 @@
    </properties>
   </tile>
  </tileset>
+ <imagelayer name="Background" width="40" height="20">
+  <image source="../backgroundImages/Background05.png"/>
+ </imagelayer>
  <objectgroup name="Black_Hero" width="40" height="20" visible="0">
   <object name="heroEntity" x="32" y="0" width="32" height="64">
    <properties>

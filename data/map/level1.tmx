@@ -19,11 +19,11 @@
  <imagelayer name="Background" width="40" height="20">
   <image source="../backgroundImages/Background04.png"/>
  </imagelayer>
- <imagelayer name="Paralax1" width="40" height="20">
+ <imagelayer name="Paralax1" width="40" height="20" visible="0">
   <image source="../paralax/Berg04.png"/>
   <properties>
-   <property name="epeat" value="false"/>
    <property name="ratio" value="0.35"/>
+   <property name="repeat" value="false"/>
    <property name="x" value="200"/>
   </properties>
  </imagelayer>

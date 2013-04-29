@@ -156,9 +156,33 @@ var g_resources= [{
     type: "image",
     src: "data/sprites/points_icon32x32.png"
 },{
+    name: "Background01",
+    type: "image",
+    src: "data/backgroundImages/Background01.png"
+},{
+    name: "Background02",
+    type: "image",
+    src: "data/backgroundImages/Background02.png"
+},{
+    name: "Background03",
+    type: "image",
+    src: "data/backgroundImages/Background03.png"
+},{
     name: "Background04",
     type: "image",
     src: "data/backgroundImages/Background04.png"
+},{
+    name: "Background05",
+    type: "image",
+    src: "data/backgroundImages/Background05.png"
+},{
+    name: "Background06",
+    type: "image",
+    src: "data/backgroundImages/Background06.png"
+},{
+    name: "Background07",
+    type: "image",
+    src: "data/backgroundImages/Background07.png"
 },{
     name: "Berg04",
     type: "image",
