@@ -69,9 +69,12 @@ var jsApp	=
         me.entityPool.add("Enemy2Entity", Enemy2Entity);
         // Key bindings
         me.input.bindKey(me.input.KEY.LEFT,  "left");
+        me.input.bindKey(me.input.KEY.A,  "left");
         me.input.bindKey(me.input.KEY.RIGHT, "right");
+        me.input.bindKey(me.input.KEY.D, "right");
         me.input.bindKey(me.input.KEY.l, "right");
         me.input.bindKey(me.input.KEY.UP,     "jump", true);
+        me.input.bindKey(me.input.KEY.W,     "jump", true);
         me.input.bindKey(me.input.KEY.P,     "pause", true);
         me.input.bindKey(me.input.KEY.M,     "mute", true);
         // start the game 
