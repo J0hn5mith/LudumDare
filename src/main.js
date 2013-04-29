@@ -285,100 +285,15 @@ var PlayScreen = me.ScreenObject.extend(
                       this.parent(true);
                       this.isPaused = false;
                   },
-            onResetEvent: function()
-{	
-
-    // Start Level
-    // add a default HUD to the game mngr
-    me.game.addHUD(0, 0, 640, 480);
-
-
-    creditsStart = 4;
-    me.gamestat.add("creditsStart", creditsStart);
-    me.gamestat.add("creditsCurrent", creditsStart);
-    lifeStart = 3;
-    me.gamestat.add("lifeStart", lifeStart);
-    me.gamestat.add("lifeCurrent", lifeStart);
-    me.gamestat.add("score", 0);
-    me.gamestat.add("currentLevel", 0);
-    me.gamestat.add("coins",97);
-
-
-    // add a new HUD item
-    me.creditStart = 4;
-    me.lifeStart = 3;
-    xOffset2Row = 440; 
-    yOffsetCredits = 10;
-    yOffsetLifes = 120;
-    yOffsetCoins = 230;
-    yOffsetPoints = 370;
-    xName = 400;
-    yName = 10;
-    me.game.HUD.addItem("score", new HUDImageObject(yOffsetPoints,xOffset2Row,me.loader.getImage("points_icon")));
-    me.game.HUD.addItem("lifes", new HUDImageObject(yOffsetLifes,xOffset2Row,me.loader.getImage("life_icon")));
-    me.game.HUD.addItem("coins", new HUDImageObject(yOffsetCoins,xOffset2Row,me.loader.getImage("coins_icon")));
-    me.game.HUD.addItem("credits", new HUDImageObject(yOffsetCredits,xOffset2Row,me.loader.getImage("credits_icon")));
-    // Don't now how to change its value
-    // me.game.HUD.addItem("levelName", new LabelObject(xName, yName)); 
-
-    //me.game.HUD.setItemValue("levelName","Level name" );
-    me.game.HUD.updateItemValue("coins",0 );
-    me.game.HUD.updateItemValue("lifes", me.lifeStart);
-    me.game.HUD.updateItemValue("credits", me.creditStart);
-    me.levelName = "LEVEL";
-
-    // make sure everything is in the right order
-    me.game.sort();
-    me.audio.playTrack("sterni");
-    me.levelDirector.loadLevel("level8");
-},
-
-
-    update: function(){
-                if(me.input.isKeyPressed('mute')){
-                    if (me.music == 1){
-                        me.audio.unmuteAll()
-                    }else{
-                        me.audio.mute("sterni");
-
-                    }
-                }
-                if(me.input.isKeyPressed('pause')){
-                    if(!this.isPaused){
-                        this.isPaused = true;
-                        me.state.onPause = function(){
-                                me.state.resume(true);
-                            if(me.input.isKeyPressed('pause')){
-                                this.isPaused = false;                                   
-                                //me.state.resume(true);
-                            }
-                        }
-
-                        //me.state.pause('true'); 
-                    } else{
-                        this.isPaused = false;
-                        me.state.resume(true);
-                    }
-                     me.state.pause('false'); 
-              }
-            },
-    /* ---
-
        action to perform when game is finished (state change)
 
        ---	*/
     onDestroyEvent: function()
 {
 
-<<<<<<< Updated upstream
                         me.game.HUD.removeItem("levelName");
     me.levelDirector.loadLevel("level1");
-=======
-    init: function()
-	{
-              this.parent(true);
-   
-	},	
+},
     update: function()
 	{
 	//console.log("hallo");
@@ -463,20 +378,10 @@ var PlayScreen = me.ScreenObject.extend(
 	me.audio.playTrack("sterni");	
 
 
-        me.levelDirector.loadLevel("level7");
+        me.levelDirector.loadLevel("level1");
 	},
 	
 	
-	/* ---
-	
-		 action to perform when game is finished (state change)
-		
-		---	*/
-	onDestroyEvent: function()
-	{
-   }
->>>>>>> Stashed changes
-}
 
 });
 
