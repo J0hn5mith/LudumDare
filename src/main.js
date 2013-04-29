@@ -41,6 +41,10 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret3.tmx"
 },{
+    name: "secret4",
+    type: "tmx",
+    src: "data/map/secret4.tmx"
+},{
     name: "endmap",
     type: "tmx",
     src: "data/map/endmap.tmx"
@@ -49,12 +53,17 @@ var g_resources= [{
     name: "jump",
     type: "audio",
     src: "data/audio/",
-    channel: 1
+    channel: 2
 }, {
     name: "jump_on_enemy",
     type: "audio",
     src: "data/audio/",
-    channel: 2
+    channel: 3
+}, {
+    name: "sterni",
+    type: "audio",
+    src: "data/audio/",
+    channel: 1
 }, {
     name: "tileset32x32",
     type: "image",
@@ -217,9 +226,16 @@ var jsApp	=
         me.entityPool.add("Enemy2Entity", Enemy2Entity);
       // Key bindings
       me.input.bindKey(me.input.KEY.LEFT,  "left");
+      me.input.bindKey(me.input.KEY.A,  "left");
+      
       me.input.bindKey(me.input.KEY.RIGHT, "right");
-      me.input.bindKey(me.input.KEY.l, "right");
+      me.input.bindKey(me.input.KEY.D, "right");
+      
       me.input.bindKey(me.input.KEY.UP,     "jump", true);
+      me.input.bindKey(me.input.KEY.W,     "jump", true);
+      
+      me.input.bindKey(me.input.KEY.M,     "mute", true);
+      me.input.bindKey(me.input.KEY.P,     "pause", true);
       // start the game 
 		me.state.change(me.state.MENU);
 	}
@@ -230,6 +246,42 @@ var jsApp	=
 var PlayScreen = me.ScreenObject.extend(
 {
 
+    init: function() {
+              this.parent(true);
+   
+	},	
+    update: function()
+	{
+		//Mute the Game	
+		if (me.input.isKeyPressed('mute')) {
+			me.music = me.music * -1;
+			//console.log(me.music);
+			if (me.music == 1){
+				me.audio.unmuteAll()
+			}else{
+				me.audio.muteAll();
+			}
+		}
+		//Pause the Game
+		if (me.input.isKeyPressed('pause')) {
+			me.pause = me.pause * -1;
+			console.log(me.pause);
+			if (me.pause == 1){
+				me.state.resume();
+			}else{
+				me.state.pause();
+				    var resume_loop = setInterval(function check_resume() {
+			if (me.input.isKeyPressed("pause")) {
+			    me.pause = me.pause * -1;
+			    clearInterval(resume_loop);
+			    me.state.resume();
+			}
+		    }, 100);
+			}
+		}
+	},
+
+
    onResetEvent: function()
 	{	
 
@@ -238,7 +290,7 @@ var PlayScreen = me.ScreenObject.extend(
         me.game.addHUD(0, 430, 640, 60);
  	
 
-	        creditsStart = 4;
+	creditsStart = 4;
         me.gamestat.add("creditsStart", creditsStart);
         me.gamestat.add("creditsCurrent", creditsStart);
         lifeStart = 3;
@@ -252,7 +304,9 @@ var PlayScreen = me.ScreenObject.extend(
         // add a new HUD item
         me.creditStart = 4;
         me.lifeStart = 3;
-        me.game.HUD.addItem("score", new ScoreObject(620, 10));
+        me.music = 1;
+	me.pause = 1;
+	me.game.HUD.addItem("score", new ScoreObject(620, 10));
         me.game.HUD.addItem("lifes", new ScoreObject(400, 10));
         me.game.HUD.addItem("coins", new ScoreObject(200, 10));
         me.game.HUD.addItem("credits", new ScoreObject(50, 10));
@@ -267,8 +321,11 @@ var PlayScreen = me.ScreenObject.extend(
 	// make sure everyhting is in the right order
         me.game.sort();
 
+	//main sound
+	
+	me.audio.playTrack("sterni");	
 
-        me.levelDirector.loadLevel("secret3");
+        me.levelDirector.loadLevel("secret4");
 	},
 	
 	

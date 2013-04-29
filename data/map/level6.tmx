@@ -150,6 +150,21 @@
     <property name="to" value="level7"/>
    </properties>
   </object>
+  <object name="me.LevelEntity" x="1184" y="96" width="32" height="64">
+   <properties>
+    <property name="to" value="Secret3"/>
+   </properties>
+  </object>
+  <object name="me.LevelEntity" x="1152" y="96" width="32" height="64">
+   <properties>
+    <property name="to" value="Secret3"/>
+   </properties>
+  </object>
+  <object name="me.LevelEntity" x="256" y="160" width="32" height="32">
+   <properties>
+    <property name="to" value="Secret3"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Acids" width="40" height="20">
   <object name="redAcidEntity" x="576" y="480" width="128" height="32">
@@ -225,11 +240,6 @@
     <property name="spritewidth" value="32"/>
    </properties>
   </object>
-  <object name="me.LevelEntity" x="1184" y="96" width="32" height="64">
-   <properties>
-    <property name="to" value="Secret3"/>
-   </properties>
-  </object>
   <object name="CoinEntity" x="864" y="224" width="32" height="32">
    <properties>
     <property name="image" value="black_coin"/>
@@ -237,12 +247,6 @@
    </properties>
   </object>
   <object name="CoinEntity" x="832" y="224" width="32" height="32">
-   <properties>
-    <property name="image" value="black_coin"/>
-    <property name="spritewidth" value="32"/>
-   </properties>
-  </object>
-  <object name="CoinEntity" x="1152" y="128" width="32" height="32">
    <properties>
     <property name="image" value="black_coin"/>
     <property name="spritewidth" value="32"/>
@@ -326,12 +330,6 @@
     <property name="spritewidth" value="32"/>
    </properties>
   </object>
-  <object name="CoinEntity" x="640" y="320" width="32" height="32">
-   <properties>
-    <property name="image" value="black_coin"/>
-    <property name="spritewidth" value="32"/>
-   </properties>
-  </object>
   <object name="CoinEntity" x="608" y="192" width="32" height="32">
    <properties>
     <property name="image" value="black_coin"/>
@@ -351,6 +349,12 @@
    </properties>
   </object>
   <object name="CoinEntity" x="288" y="96" width="32" height="32">
+   <properties>
+    <property name="image" value="black_coin"/>
+    <property name="spritewidth" value="32"/>
+   </properties>
+  </object>
+  <object name="CoinEntity" x="640" y="320" width="32" height="32">
    <properties>
     <property name="image" value="black_coin"/>
     <property name="spritewidth" value="32"/>
