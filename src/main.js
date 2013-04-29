@@ -285,9 +285,7 @@ var PlayScreen = me.ScreenObject.extend(
                       this.parent(true);
                       this.isPaused = false;
                   },
-       action to perform when game is finished (state change)
 
-       ---	*/
     onDestroyEvent: function()
 {
 
