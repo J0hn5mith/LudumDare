@@ -66,10 +66,10 @@ var HeroEntity  = me.ObjectEntity.extend({
             // Handle collision with power up
             if(res.obj.type == "powerup"){
 
-                console.log(res.obj);
+                
                 this.getPowerUp(res.obj.powerupcolor);
       
-	          console.log("got powerup");
+	          
                 
             };
 
@@ -129,8 +129,7 @@ var HeroEntity  = me.ObjectEntity.extend({
   // @param color string with the color of the powerup
   getPowerUp: function(color){
                   this.powerUpColor = color;
-                  console.debug(this);
-                  console.debug(color);
+                  
                   // Set image
                   if(color == "red"){
                      this.image = me.loader.getImage("red_hero");

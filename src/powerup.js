@@ -11,7 +11,16 @@ var PowerupEntity = me.CollectableEntity.extend({
 
         // Power up parameters
         this.type = "powerup";
-        
+   
+		// Removable
+		if(settings.notRemoveable){
+			this.removable = false;	
+		}
+		else{
+			this.removable = true;
+		}
+		
+		this.pointsCollected = false;
 
         this.startX = x;
         this.endX = x + settings.width - settings.spritewidth;
@@ -74,10 +83,21 @@ var PowerupEntity = me.CollectableEntity.extend({
     // an object is touched by something (here collected)
     onCollision: function() {
         // do something when collected
- 
+ 	
+		// First time power up is collected 
+		if(!this.pointsCollected){
+			me.game.HUD.updateItemValue("score", Properties.powerUpPoints);
+			
+			this.pointsCollected = true;
+		}
+		
         // make sure it cannot be collected "again"
-        this.collidable = false;
-        // remove it
-        me.game.remove(this);
+		if(this.removable){
+			this.collidable = false;
+	        me.game.remove(this);
+		}
+		
+
+        
     }
 });

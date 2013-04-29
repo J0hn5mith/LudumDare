@@ -14,8 +14,8 @@ var CoinEntity = me.CollectableEntity.extend({
     onCollision: function() {
         // do something when collected
 	// give some score & coins and handle lifes
-    	me.game.HUD.updateItemValue("score", 100);
-	if(me.game.HUD.getItemValue("coins") == 99){
+    	me.game.HUD.updateItemValue("score", Properties.coinPoints);
+	if(me.game.HUD.getItemValue("coins") == Properties.coinsForLife){
 		me.game.HUD.updateItemValue("credits", 1); 
 		me.game.HUD.setItemValue("coins",0);
 	} else{
@@ -26,4 +26,5 @@ var CoinEntity = me.CollectableEntity.extend({
         // remove it
         me.game.remove(this);
  } }); 
+
 
