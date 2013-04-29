@@ -7,7 +7,7 @@ var TitleScreen = me.ScreenObject.extend({
     onResetEvent: function() {
                       if(!this.bgImage){
                           this.bgImage = me.loader.getImage("menu_screen");
-                          me.input.bindKey(me.input.KEY.ENTER, 'enter', true);
+                         
                       }
                   },
 

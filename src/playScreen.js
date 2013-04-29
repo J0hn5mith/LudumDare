@@ -24,6 +24,7 @@ var PlayScreen = me.ScreenObject.extend(
 				me.audio.muteAll();
 			}
 		}
+		
 		//Pause the Game
 		if (me.input.isKeyPressed('pause')) {
 			me.pause = me.pause * -1;

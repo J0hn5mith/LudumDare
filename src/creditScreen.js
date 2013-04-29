@@ -20,12 +20,11 @@ var CreditScreen  = me.ScreenObject.extend({
                           this.sCredits = " SOUND: JULI"; 
                           this.mCredits ="MUSIC: VOGT";
 
-
                           this.bgImage = me.loader.getImage("game_over_screen320x480")
 
     this.isLoaded = true;
                       }
-                      me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+                     
                   },
 
     update: function(){

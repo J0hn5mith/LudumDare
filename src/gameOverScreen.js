@@ -16,12 +16,10 @@ var GameOverScreen = me.ScreenObject.extend({
                           this.textLabel = "GAME OVER";
                           this.bgImage = me.loader.getImage("game_over_screen320x480")
 
-    this.isLoaded = true;
-                      }
-                      me.input.bindKey(me.input.KEY.ENTER, "enter", true);
-                      // Set level director to map  1, such that the next game start at
-                      // the first map again
-    me.levelDirector.loadLevel("level1");
+    					this.isLoaded = true; 
+					}
+    
+     // Set level director to map 1, such that the next game start at // the first map again me.levelDirector.loadLevel("level1");
 
                   },
 
