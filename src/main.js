@@ -67,7 +67,9 @@ var jsApp	=
         me.entityPool.add("powerupEntity", PowerupEntity);
         me.entityPool.add("Enemy1Entity", Enemy1Entity);
         me.entityPool.add("Enemy2Entity", Enemy2Entity);
-        // Key bindings
+        
+
+		// Key bindings
         me.input.bindKey(me.input.KEY.LEFT,  "left");
         me.input.bindKey(me.input.KEY.A,  "left");
         me.input.bindKey(me.input.KEY.RIGHT, "right");
@@ -77,6 +79,7 @@ var jsApp	=
         me.input.bindKey(me.input.KEY.W,     "jump", true);
         me.input.bindKey(me.input.KEY.P,     "pause", true);
         me.input.bindKey(me.input.KEY.M,     "mute", true);
+		me.input.bindKey(me.input.KEY.ENTER,     "enter", true);
         // start the game 
         me.state.change(me.state.MENU);
     }

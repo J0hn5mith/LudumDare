@@ -24,6 +24,7 @@ var PlayScreen = me.ScreenObject.extend(
 				me.audio.muteAll();
 			}
 		}
+		
 		//Pause the Game
 		if (me.input.isKeyPressed('pause')) {
 			me.pause = me.pause * -1;
@@ -46,29 +47,17 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-
-       	// Start Level
-        // add a default HUD to the game mngr
+		
+			// Load level
+	        me.levelDirector.loadLevel(Properties.startLevel);
+		
+        // Create HUD
         me.game.addHUD(0, 0, 640, 480);
- 	
-
-	creditsStart = 4;
-        me.gamestat.add("creditsStart", creditsStart);
-        me.gamestat.add("creditsCurrent", creditsStart);
-        lifeStart = 3;
-        me.gamestat.add("lifeStart", lifeStart);
-        me.gamestat.add("lifeCurrent", lifeStart);
-        me.gamestat.add("score", 0);
-        me.gamestat.add("currentLevel", 0);
-	me.gamestat.add("coins",97);
-
-
-        // add a new HUD item
-        me.creditStart = 4;
-        me.lifeStart = 3;
+        me.creditStart = Properties.creditsStart;
+        me.lifeStart = Properties.lifeStart;
         me.music = 1;
-	me.pause = 1;
-	xOffset2Row = 440; 
+		me.pause = 1;
+		xOffset2Row = 440; 
         yOffsetCredits = 10;
         yOffsetLifes = 120;
         yOffsetCoins = 230;
@@ -79,23 +68,19 @@ var PlayScreen = me.ScreenObject.extend(
         me.game.HUD.addItem("lifes", new HUDImageObject(yOffsetLifes,xOffset2Row,me.loader.getImage("life_icon")));
         me.game.HUD.addItem("coins", new HUDImageObject(yOffsetCoins,xOffset2Row,me.loader.getImage("coins_icon")));
         me.game.HUD.addItem("credits", new HUDImageObject(yOffsetCredits,xOffset2Row,me.loader.getImage("credits_icon")));
-        me.game.HUD.addItem("levelName", new LabelObject(xName, yName));
+        // me.game.HUD.addItem("levelName", new LabelObject(xName, yName));
 
-	//me.game.HUD.setItemValue("levelName","Level name" );
-	me.game.HUD.updateItemValue("coins",0 );
-	me.game.HUD.updateItemValue("lifes", me.lifeStart);
-	me.game.HUD.updateItemValue("credits", me.creditStart);
-    me.levelName = "level";
+		me.game.HUD.updateItemValue("coins",0 );
+		me.game.HUD.updateItemValue("lifes", me.lifeStart);
+		me.game.HUD.updateItemValue("credits", me.creditStart);
 
 	// make sure everything is in the right order
         me.game.sort();
 
-	//main sound
+		// Load background music	
+		me.audio.playTrack("sterni");	
+
 	
-	me.audio.playTrack("sterni");	
-
-
-        me.levelDirector.loadLevel("level1");
 	},
 	
 	
