@@ -29,6 +29,10 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/level7.tmx"
 },{
+    name: "level8",
+    type: "tmx",
+    src: "data/map/level8.tmx"
+},{
     name: "secret1",
     type: "tmx",
     src: "data/map/secret1.tmx"
@@ -46,15 +50,20 @@ var g_resources= [{
     src: "data/map/endmap.tmx"
 },{
     // audio resources
+    name: "sterni",
+   type: "audio",
+    src: "data/audio/",
+    channel: 1
+}, {
     name: "jump",
     type: "audio",
     src: "data/audio/",
-    channel: 1
+    channel: 2
 }, {
     name: "jump_on_enemy",
     type: "audio",
     src: "data/audio/",
-    channel: 2
+    channel: 3
 }, {
     name: "tileset32x32",
     type: "image",
@@ -237,6 +246,7 @@ var jsApp	=
     loaded: function ()
     {
         // set the "Play/Ingame" Screen Object
+        //
         me.state.set(me.state.PLAY, new PlayScreen());
         me.state.set(me.state.GAME_OVER, new GameOverScreen());
         me.state.set(me.state.MENU, new TitleScreen());
@@ -259,8 +269,9 @@ var jsApp	=
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.l, "right");
         me.input.bindKey(me.input.KEY.UP,     "jump", true);
+        me.input.bindKey(me.input.KEY.P,     "pause", true);
+        me.input.bindKey(me.input.KEY.M,     "mute", true);
         // start the game 
-//        me.state.change(me.state.MENU);
         me.state.change(me.state.MENU);
     }
 
@@ -270,6 +281,10 @@ var jsApp	=
 var PlayScreen = me.ScreenObject.extend(
         {
 
+            init: function(){
+                      this.parent(true);
+                      this.isPaused = false;
+                  },
             onResetEvent: function()
 {	
 
@@ -314,12 +329,39 @@ var PlayScreen = me.ScreenObject.extend(
 
     // make sure everything is in the right order
     me.game.sort();
-
-
-    me.levelDirector.loadLevel("level1");
+    me.audio.playTrack("sterni");
+    me.levelDirector.loadLevel("level8");
 },
 
 
+    update: function(){
+                if(me.input.isKeyPressed('mute')){
+                    if (me.music == 1){
+                        me.audio.unmuteAll()
+                    }else{
+                        me.audio.mute("sterni");
+
+                    }
+                }
+                if(me.input.isKeyPressed('pause')){
+                    if(!this.isPaused){
+                        this.isPaused = true;
+                        me.state.onPause = function(){
+                                me.state.resume(true);
+                            if(me.input.isKeyPressed('pause')){
+                                this.isPaused = false;                                   
+                                //me.state.resume(true);
+                            }
+                        }
+
+                        //me.state.pause('true'); 
+                    } else{
+                        this.isPaused = false;
+                        me.state.resume(true);
+                    }
+                     me.state.pause('false'); 
+              }
+            },
     /* ---
 
        action to perform when game is finished (state change)
