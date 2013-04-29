@@ -60,4 +60,4 @@ var HUDImageObject = ScoreObject.extend({
               this.font.draw(context, this.value, labelX, labelY);
 
           }
-});x§
+});
