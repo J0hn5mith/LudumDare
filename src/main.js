@@ -164,6 +164,14 @@ var g_resources= [{
     name: "points_icon",
     type: "image",
     src: "data/sprites/points_icon32x32.png"
+},{
+    name: "Background04",
+    type: "image",
+    src: "data/backgroundImages/Background04.png"
+},{
+    name: "Berg04",
+    type: "image",
+    src: "data/paralax/Berg04.png"
 }];
 
 
@@ -287,7 +295,7 @@ var PlayScreen = me.ScreenObject.extend(
 
        	// Start Level
         // add a default HUD to the game mngr
-        me.game.addHUD(0, 430, 640, 60);
+        me.game.addHUD(0, 0, 640, 480);
  	
 
 	creditsStart = 4;
@@ -304,28 +312,34 @@ var PlayScreen = me.ScreenObject.extend(
         // add a new HUD item
         me.creditStart = 4;
         me.lifeStart = 3;
-        me.music = 1;
-	me.pause = 1;
-	me.game.HUD.addItem("score", new ScoreObject(620, 10));
-        me.game.HUD.addItem("lifes", new ScoreObject(400, 10));
-        me.game.HUD.addItem("coins", new ScoreObject(200, 10));
-        me.game.HUD.addItem("credits", new ScoreObject(50, 10));
-       // me.game.HUD.addItem("lifeIcon", new HUDImageObject(0,0,me.loader.getImage("life_icon")));
-        me.game.HUD.addItem("pointsIcon", new HUDImageObject(15,30,me.loader.getImage("coins_icon")));
-        me.game.HUD.addItem("creditsIcon", new HUDImageObject(60,0,me.loader.getImage("credits_icon")));
-        me.game.HUD.addItem("pointsIcon", new HUDImageObject(30,0,me.loader.getImage("points_icon")));
+        xOffset2Row = 440; 
+        yOffsetCredits = 10;
+        yOffsetLifes = 120;
+        yOffsetCoins = 230;
+        yOffsetPoints = 370;
+        xName = 400;
+        yName = 10;
+        me.game.HUD.addItem("score", new HUDImageObject(yOffsetPoints,xOffset2Row,me.loader.getImage("points_icon")));
+        me.game.HUD.addItem("lifes", new HUDImageObject(yOffsetLifes,xOffset2Row,me.loader.getImage("life_icon")));
+        me.game.HUD.addItem("coins", new HUDImageObject(yOffsetCoins,xOffset2Row,me.loader.getImage("coins_icon")));
+        me.game.HUD.addItem("credits", new HUDImageObject(yOffsetCredits,xOffset2Row,me.loader.getImage("credits_icon")));
+        me.game.HUD.addItem("levelName", new LabelObject(xName, yName));
 
-	me.game.HUD.updateItemValue("coins", 97);
+	//me.game.HUD.setItemValue("levelName","Level name" );
+	me.game.HUD.updateItemValue("coins",0 );
 	me.game.HUD.updateItemValue("lifes", me.lifeStart);
 	me.game.HUD.updateItemValue("credits", me.creditStart);
-	// make sure everyhting is in the right order
+    me.levelName = "level";
+
+	// make sure everything is in the right order
         me.game.sort();
 
 	//main sound
 	
 	me.audio.playTrack("sterni");	
 
-        me.levelDirector.loadLevel("secret4");
+
+        me.levelDirector.loadLevel("level1");
 	},
 	
 	
@@ -341,14 +355,75 @@ var PlayScreen = me.ScreenObject.extend(
 
 });
 
-var HUDImageObject = me.HUD_Item.extend({
+
+/*-------------- 
+a score HUD Item
+--------------------- */
+ 
+
+var LabelObject = me.HUD_Item.extend({
+    
+    init: function(x, y) {
+        // call the parent constructor
+        this.parent(x, y);
+        // create a font
+        this.font = new me.BitmapFont("32x32_font", 32);
+        this.font.set("left");
+    },
+ 
+    /* -----
+     *
+ 
+    draw our HUD
+ 
+    ------ */
+    draw: function(context, x, y) {
+              levelName = me.levelName.toString();
+              console.log("Level name: " + levelName);
+              //levelName = "FOO";
+        this.font.draw(context,levelName.toString(), this.pos.x + x, this.pos.y + y);
+    }
+ 
+});
+
+var ScoreObject = me.HUD_Item.extend({
+    init: function(x, y) {
+        // call the parent constructor
+        this.parent(x, y);
+        // create a font
+        this.font = new me.BitmapFont("32x32_font", 32);
+        this.font.set("left");
+    },
+ 
+    /* -----
+     *
+ 
+    draw our HUD
+ 
+    ------ */
+    draw: function(context, x, y) {
+        this.font.draw(context, this.value, this.pos.x + x, this.pos.y + y);
+    }
+ 
+});
+var HUDImageObject = ScoreObject.extend({
   init: function(x,y,image){
             this.parent(x,y);
             this.image = image;
+            this.imageW = 32; // Fixed size
+            this.imageH = 32;
+            this.gap = 5; // Gap between image and text label
         },
 
     draw: function(context, x,y){
-              context.drawImage(this.image,this.pos.x+x,this.pos.y+y);
+              imageX = this.pos.x+x;
+              imageY = this.pos.y+y;
+              labelX = imageX + this.imageW  + this.gap;
+              labelY = imageY;// If font < 32 is used this has to be implemented
+              console.log(this.image);
+              context.drawImage(this.image,imageX,imageY);
+               this.font.draw(context, this.value, labelX, labelY);
+
           }
 });
 
@@ -363,6 +438,7 @@ var GameOverScreen = me.ScreenObject.extend({
               this.largeFontSize = 32;
               this.bgImage = null;
           },
+
     onResetEvent: function(){
               console.log("Reset  debug screen");
                 if(!this.isLoaded  ){

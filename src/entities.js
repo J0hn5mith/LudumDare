@@ -91,9 +91,8 @@ var HeroEntity  = me.ObjectEntity.extend({
           },
   // The hero has no lives left and dies
   die: function(){
-           tmpCredits = me.gamestat.getItemValue("creditsCurrent")
-          me.gamestat.setValue("creditsCurrent", --tmpCredits);
-           if(tmpCredits < 0){
+           me.game.HUD.updateItemValue("credits", -1);
+           if(me.game.HUD.getItemValue("credits") < 0){
                console.log("No credits left");
                me.state.change(me.state.GAME_OVER);
               
@@ -144,28 +143,6 @@ var HeroEntity  = me.ObjectEntity.extend({
 
 });
 
-/*-------------- 
-a score HUD Item
---------------------- */
- 
-var ScoreObject = me.HUD_Item.extend({
-    init: function(x, y) {
-        // call the parent constructor
-        this.parent(x, y);
-        // create a font
-        this.font = new me.BitmapFont("32x32_font", 32);
-    },
- 
-    /* -----
- 
-    draw our HUD
- 
-    ------ */
-    draw: function(context, x, y) {
-        this.font.draw(context, this.value, this.pos.x + x, this.pos.y + y);
-    }
- 
-});
 
 
 
