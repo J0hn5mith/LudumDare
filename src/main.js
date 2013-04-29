@@ -41,29 +41,20 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret3.tmx"
 },{
-    name: "secret4",
-    type: "tmx",
-    src: "data/map/secret4.tmx"
-},{
     name: "endmap",
     type: "tmx",
     src: "data/map/endmap.tmx"
 },{
-// audio resources
+    // audio resources
     name: "jump",
     type: "audio",
     src: "data/audio/",
-    channel: 2
+    channel: 1
 }, {
     name: "jump_on_enemy",
     type: "audio",
     src: "data/audio/",
-    channel: 3
-}, {
-    name: "sterni",
-    type: "audio",
-    src: "data/audio/",
-    channel: 1
+    channel: 2
 }, {
     name: "tileset32x32",
     type: "image",
@@ -100,7 +91,7 @@ var g_resources= [{
     name: "green_acid256X256",
     type: "image",
     src: "data/sprites/green_acid256x256.png"
-  },{
+},{
     name: "black_enemy1",
     type: "image",
     src: "data/sprites/black_enemy1_28x28.png"
@@ -177,53 +168,54 @@ var g_resources= [{
 
 var jsApp	= 
 {	
-	/* ---
-	
-		Initialize the jsApp
-		
-		---			*/
-	onload: function()
-	{
-		
-		// init the video
-		if (!me.video.init('jsapp', 640, 480, false, 1.0))
-		{
-			alert("Sorry but your browser does not support html 5 canvas.");
-         return;
-		}
-				
-		// initialize the "audio"
-		me.audio.init("ogg,mp3,wav");
-		
-		// set all resources to be loaded
-		me.loader.onload = this.loaded.bind(this);
-		
-		// set all resources to be loaded
-		me.loader.preload(g_resources);
+    /* ---
 
-		// load everything & display a loading screen
-		me.state.change(me.state.LOADING);
+       Initialize the jsApp
+
+       ---			*/
+    onload: function()
+    {
+
+        // init the video
+        if (!me.video.init('jsapp', 640, 480, false, 1.0))
+        {
+            alert("Sorry but your browser does not support html 5 canvas.");
+            return;
+        }
+
+        // initialize the "audio"
+        me.audio.init("ogg,mp3,wav");
+
+        // set all resources to be loaded
+        me.loader.onload = this.loaded.bind(this);
+
+        // set all resources to be loaded
+        me.loader.preload(g_resources);
+
+        // load everything & display a loading screen
+        me.state.change(me.state.LOADING);
 
         // Init the game stats
-	},
-	
-	
-	/* ---
-	
-		callback when everything is loaded
-		
-		---										*/
-	loaded: function ()
-	{
-		// set the "Play/Ingame" Screen Object
-		me.state.set(me.state.PLAY, new PlayScreen());
+    },
+
+
+    /* ---
+
+       callback when everything is loaded
+
+       ---										*/
+    loaded: function ()
+    {
+        // set the "Play/Ingame" Screen Object
+        me.state.set(me.state.PLAY, new PlayScreen());
         me.state.set(me.state.GAME_OVER, new GameOverScreen());
         me.state.set(me.state.MENU, new TitleScreen());
+        me.state.set(me.state.CREDITS, new CreditScreen());
         // Set fade
-         //me.state.transition("fade", "#000000", 1000);
-         // If fading is set, state change does not work properly
+        //me.state.transition("fade", "#000000", 1000);
+        // If fading is set, state change does not work properly
 
-      // Entity pool
+        // Entity pool
         me.entityPool.add("heroEntity", HeroEntity);
         me.entityPool.add("redAcidEntity", RedAcidEntity);
         me.entityPool.add("blueAcidEntity", BlueAcidEntity);
@@ -232,188 +224,142 @@ var jsApp	=
         me.entityPool.add("powerupEntity", PowerupEntity);
         me.entityPool.add("Enemy1Entity", Enemy1Entity);
         me.entityPool.add("Enemy2Entity", Enemy2Entity);
-      // Key bindings
-      me.input.bindKey(me.input.KEY.LEFT,  "left");
-      me.input.bindKey(me.input.KEY.A,  "left");
-      
-      me.input.bindKey(me.input.KEY.RIGHT, "right");
-      me.input.bindKey(me.input.KEY.D, "right");
-      
-      me.input.bindKey(me.input.KEY.UP,     "jump", true);
-      me.input.bindKey(me.input.KEY.W,     "jump", true);
-      
-      me.input.bindKey(me.input.KEY.M,     "mute", true);
-      me.input.bindKey(me.input.KEY.P,     "pause", true);
-      // start the game 
-		me.state.change(me.state.MENU);
-	}
+        // Key bindings
+        me.input.bindKey(me.input.KEY.LEFT,  "left");
+        me.input.bindKey(me.input.KEY.RIGHT, "right");
+        me.input.bindKey(me.input.KEY.l, "right");
+        me.input.bindKey(me.input.KEY.UP,     "jump", true);
+        // start the game 
+//        me.state.change(me.state.MENU);
+        me.state.change(me.state.MENU);
+    }
 
 }; // jsApp
 
 /* the in game stuff*/
 var PlayScreen = me.ScreenObject.extend(
+        {
+
+            onResetEvent: function()
+{	
+
+    // Start Level
+    // add a default HUD to the game mngr
+    me.game.addHUD(0, 0, 640, 480);
+
+
+    creditsStart = 4;
+    me.gamestat.add("creditsStart", creditsStart);
+    me.gamestat.add("creditsCurrent", creditsStart);
+    lifeStart = 3;
+    me.gamestat.add("lifeStart", lifeStart);
+    me.gamestat.add("lifeCurrent", lifeStart);
+    me.gamestat.add("score", 0);
+    me.gamestat.add("currentLevel", 0);
+    me.gamestat.add("coins",97);
+
+
+    // add a new HUD item
+    me.creditStart = 4;
+    me.lifeStart = 3;
+    xOffset2Row = 440; 
+    yOffsetCredits = 10;
+    yOffsetLifes = 120;
+    yOffsetCoins = 230;
+    yOffsetPoints = 370;
+    xName = 400;
+    yName = 10;
+    me.game.HUD.addItem("score", new HUDImageObject(yOffsetPoints,xOffset2Row,me.loader.getImage("points_icon")));
+    me.game.HUD.addItem("lifes", new HUDImageObject(yOffsetLifes,xOffset2Row,me.loader.getImage("life_icon")));
+    me.game.HUD.addItem("coins", new HUDImageObject(yOffsetCoins,xOffset2Row,me.loader.getImage("coins_icon")));
+    me.game.HUD.addItem("credits", new HUDImageObject(yOffsetCredits,xOffset2Row,me.loader.getImage("credits_icon")));
+    me.game.HUD.addItem("levelName", new LabelObject(xName, yName));
+
+    //me.game.HUD.setItemValue("levelName","Level name" );
+    me.game.HUD.updateItemValue("coins",0 );
+    me.game.HUD.updateItemValue("lifes", me.lifeStart);
+    me.game.HUD.updateItemValue("credits", me.creditStart);
+    me.levelName = "LEVEL";
+
+    // make sure everything is in the right order
+    me.game.sort();
+
+
+    me.levelDirector.loadLevel("level1");
+},
+
+
+    /* ---
+
+       action to perform when game is finished (state change)
+
+       ---	*/
+    onDestroyEvent: function()
 {
 
-    init: function() {
-              this.parent(true);
-   
-	},	
-    update: function()
-	{
-		//Mute the Game	
-		if (me.input.isKeyPressed('mute')) {
-			me.music = me.music * -1;
-			//console.log(me.music);
-			if (me.music == 1){
-				me.audio.unmuteAll()
-			}else{
-				me.audio.muteAll();
-			}
-		}
-		//Pause the Game
-		if (me.input.isKeyPressed('pause')) {
-			me.pause = me.pause * -1;
-			console.log(me.pause);
-			if (me.pause == 1){
-				me.state.resume();
-			}else{
-				me.state.pause();
-				    var resume_loop = setInterval(function check_resume() {
-			if (me.input.isKeyPressed("pause")) {
-			    me.pause = me.pause * -1;
-			    clearInterval(resume_loop);
-			    me.state.resume();
-			}
-		    }, 100);
-			}
-		}
-	},
-
-
-   onResetEvent: function()
-	{	
-
-       	// Start Level
-        // add a default HUD to the game mngr
-        me.game.addHUD(0, 0, 640, 480);
- 	
-
-	creditsStart = 4;
-        me.gamestat.add("creditsStart", creditsStart);
-        me.gamestat.add("creditsCurrent", creditsStart);
-        lifeStart = 3;
-        me.gamestat.add("lifeStart", lifeStart);
-        me.gamestat.add("lifeCurrent", lifeStart);
-        me.gamestat.add("score", 0);
-        me.gamestat.add("currentLevel", 0);
-	me.gamestat.add("coins",97);
-
-
-        // add a new HUD item
-        me.creditStart = 4;
-        me.lifeStart = 3;
-        xOffset2Row = 440; 
-        yOffsetCredits = 10;
-        yOffsetLifes = 120;
-        yOffsetCoins = 230;
-        yOffsetPoints = 370;
-        xName = 400;
-        yName = 10;
-        me.game.HUD.addItem("score", new HUDImageObject(yOffsetPoints,xOffset2Row,me.loader.getImage("points_icon")));
-        me.game.HUD.addItem("lifes", new HUDImageObject(yOffsetLifes,xOffset2Row,me.loader.getImage("life_icon")));
-        me.game.HUD.addItem("coins", new HUDImageObject(yOffsetCoins,xOffset2Row,me.loader.getImage("coins_icon")));
-        me.game.HUD.addItem("credits", new HUDImageObject(yOffsetCredits,xOffset2Row,me.loader.getImage("credits_icon")));
-        me.game.HUD.addItem("levelName", new LabelObject(xName, yName));
-
-	//me.game.HUD.setItemValue("levelName","Level name" );
-	me.game.HUD.updateItemValue("coins",0 );
-	me.game.HUD.updateItemValue("lifes", me.lifeStart);
-	me.game.HUD.updateItemValue("credits", me.creditStart);
-    me.levelName = "level";
-
-	// make sure everything is in the right order
-        me.game.sort();
-
-	//main sound
-	
-	me.audio.playTrack("sterni");	
-
-
-        me.levelDirector.loadLevel("level1");
-	},
-	
-	
-	/* ---
-	
-		 action to perform when game is finished (state change)
-		
-		---	*/
-	onDestroyEvent: function()
-	{
-	
-   }
+}
 
 });
 
 
 /*-------------- 
-a score HUD Item
---------------------- */
- 
+  a score HUD Item
+  --------------------- */
+
 
 var LabelObject = me.HUD_Item.extend({
-    
+
     init: function(x, y) {
-        // call the parent constructor
-        this.parent(x, y);
-        // create a font
-        this.font = new me.BitmapFont("32x32_font", 32);
-        this.font.set("left");
-    },
- 
+              // call the parent constructor
+              this.parent(x, y);
+              // create a font
+              this.font = new me.BitmapFont("32x32_font", 32);
+              this.font.set("left");
+          },
+
     /* -----
      *
- 
-    draw our HUD
- 
-    ------ */
+
+     draw our HUD
+
+     ------ */
     draw: function(context, x, y) {
               levelName = me.levelName.toString();
               console.log("Level name: " + levelName);
-              //levelName = "FOO";
-        this.font.draw(context,levelName.toString(), this.pos.x + x, this.pos.y + y);
-    }
- 
+              this.font.draw(context,levelName.toString(), this.pos.x + x, this.pos.y + y);
+          }
+
 });
 
 var ScoreObject = me.HUD_Item.extend({
     init: function(x, y) {
-        // call the parent constructor
-        this.parent(x, y);
-        // create a font
-        this.font = new me.BitmapFont("32x32_font", 32);
-        this.font.set("left");
-    },
- 
+              // call the parent constructor
+              this.parent(x, y);
+              // create a font
+              this.font = new me.BitmapFont("32x32_font", 32);
+              this.font.set("left");
+          },
+
     /* -----
      *
- 
-    draw our HUD
- 
-    ------ */
+
+     draw our HUD
+
+     ------ */
     draw: function(context, x, y) {
-        this.font.draw(context, this.value, this.pos.x + x, this.pos.y + y);
-    }
- 
+              this.font.draw(context, this.value, this.pos.x + x, this.pos.y + y);
+          }
+
 });
+
 var HUDImageObject = ScoreObject.extend({
-  init: function(x,y,image){
-            this.parent(x,y);
-            this.image = image;
-            this.imageW = 32; // Fixed size
-            this.imageH = 32;
-            this.gap = 5; // Gap between image and text label
-        },
+    init: function(x,y,image){
+              this.parent(x,y);
+              this.image = image;
+              this.imageW = 32; // Fixed size
+              this.imageH = 32;
+              this.gap = 5; // Gap between image and text label
+          },
 
     draw: function(context, x,y){
               imageX = this.pos.x+x;
@@ -422,7 +368,7 @@ var HUDImageObject = ScoreObject.extend({
               labelY = imageY;// If font < 32 is used this has to be implemented
               console.log(this.image);
               context.drawImage(this.image,imageX,imageY);
-               this.font.draw(context, this.value, labelX, labelY);
+              this.font.draw(context, this.value, labelX, labelY);
 
           }
 });
@@ -440,23 +386,24 @@ var GameOverScreen = me.ScreenObject.extend({
           },
 
     onResetEvent: function(){
-              console.log("Reset  debug screen");
-                if(!this.isLoaded  ){
-                  this.font = new me.BitmapFont("32x32_font", 32);
-                  this.font.set("left");
-                  this.textLabel = "GAME OVER";
-                  this.bgImage = me.loader.getImage("game_over_screen320x480")
+                      console.log("Reset  debug screen");
+                      if(!this.isLoaded  ){
+                          this.font = new me.BitmapFont("32x32_font", 32);
+                          this.font.set("left");
+                          this.textLabel = "GAME OVER";
+                          this.bgImage = me.loader.getImage("game_over_screen320x480")
 
-                  this.isLoaded = true;
-                }
-                me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+    this.isLoaded = true;
+                      }
+                      me.input.bindKey(me.input.KEY.ENTER, "enter", true);
                   },
 
     update: function(){
                 if (me.input.isKeyPressed('enter')) {
-                    me.state.change(me.state.PLAY);
+                    me.state.change(me.state.CREDITS);
+                    console.log("Change to credit screen");
                 }
-return true;
+                return true;
             },
     draw: function(context){
               // Draw BG Image
@@ -474,7 +421,7 @@ return true;
               this.font.draw(context, "PRESS ENTER TO CONTINUE", 45, 320);
 
           },
-          onDestroyEvent: function(){ me.input.unbindKey(me.input.KEY.ENTER); } 
+    onDestroyEvent: function(){ } 
 });
 
 
@@ -485,33 +432,96 @@ var TitleScreen = me.ScreenObject.extend({
           },
 
     onResetEvent: function() {
-        if(!this.bgImage){
-            this.bgImage = me.loader.getImage("menu_screen");
-            me.input.bindKey(me.input.KEY.ENTER, 'enter', true);
-        }
+                      if(!this.bgImage){
+                          this.bgImage = me.loader.getImage("menu_screen");
+                          me.input.bindKey(me.input.KEY.ENTER, 'enter', true);
+                      }
                   },
 
 
     update: function() {
+                console.log( "Title screen updated");
                 if (me.input.isKeyPressed('enter')) {
                     me.state.change(me.state.PLAY);
                 }
-                },
+            },
 
     draw: function(context) {
-        cWidth = context.canvas.width;
-        cHeight = context.canvas.height;
-        context.drawImage(this.bgImage,0,0,cWidth, cHeight);
+              cWidth = context.canvas.width;
+              cHeight = context.canvas.height;
+              context.drawImage(this.bgImage,0,0,cWidth, cHeight);
           },
 
 
-            onDestroyEvent: function() {
-                            
-                            }
-            });
+    onDestroyEvent: function() {
 
-        //bootstrap :)
-        window.onReady(function() 
-                {
-                    jsApp.onload();
-                });
+                    }
+});
+
+//bootstrap :)
+window.onReady(function() 
+        {
+            jsApp.onload();
+        });
+
+var CreditScreen  = me.ScreenObject.extend({
+    // constructor
+    init: function() {
+              this.parent(true);
+              this.font = null;
+              this.isLoaded = false;
+              this.textLabel = null;
+              this.smallFontRatio = 0.6;
+              this.largeFontSize = 32;
+              this.bgImage = null;
+          },
+    onResetEvent: function() {
+
+                      if(!this.isLoaded  ){
+                          this.font = new me.BitmapFont("32x32_font", 32);
+                          this.font.set("center");
+                          this.titleLabel = "CREDITS";
+                          this.pCredits = "PROGRAMMING: JULI, JAN";
+                          this.gCredits = "GRAPHICS: TOM, JULI, JAN";
+                          this.sCredits = " SOUND: JULI"; 
+                          this.mCredits ="MUSIC: VOGT";
+
+
+                          this.bgImage = me.loader.getImage("game_over_screen320x480")
+
+    this.isLoaded = true;
+                      }
+                      me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+                  },
+
+    update: function(){
+                if (me.input.isKeyPressed('enter')) {
+                    me.state.change(me.state.MENU);
+                }
+                return true;
+            },
+    draw: function(context){
+              // Draw BG Image
+              context.drawImage(this.bgImage,0,0, context.canvas.width, context.canvas.height);
+              // Draw the game over label
+              // TODO Automatic spacing
+              xPos = 250;
+              yPos = 200;
+              gap = 18;
+              tHeight = 32;
+              this.font.resize(1.0);
+              this.font.draw(context, this.titleLabel, xPos, yPos);
+              this.font.resize(this.smallFontRatio);
+              yPos += tHeight + gap + 5;
+              this.font.draw(context, this.pCredits,xPos, yPos );
+              yPos += tHeight * this.smallFontRatio + gap;
+              this.font.draw(context, this.gCredits,xPos, yPos );
+              yPos += tHeight * this.smallFontRatio + gap;
+              this.font.draw(context, this.sCredits,xPos, yPos );
+              yPos += tHeight * this.smallFontRatio + gap;
+              this.font.draw(context, this.mCredits,xPos, yPos );
+
+          },
+    onDestroyEvent: function(){  } 
+
+});

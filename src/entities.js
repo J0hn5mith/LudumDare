@@ -385,8 +385,6 @@ var AcidEntity  = me.ObjectEntity.extend({
   init: function(x, y, settings){
             ACID_HEIGHT = 8;
 
-           // settings.spriteheight = settings.height;
-            //settings.spritewidth = settings.width;
             settings.spritewidth = settings.width;
             settings.spriteheight = ACID_HEIGHT;
             y += (settings.height - ACID_HEIGHT);
