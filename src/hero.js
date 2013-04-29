@@ -93,7 +93,7 @@ var HeroEntity  = me.ObjectEntity.extend({
   die: function(){
            me.game.HUD.updateItemValue("credits", -1);
            if(me.game.HUD.getItemValue("credits") < 0){
-               console.log("No credits left");
+               //console.log("No credits left");
                me.state.change(me.state.GAME_OVER);
               
 		//disable HUD
@@ -106,8 +106,8 @@ var HeroEntity  = me.ObjectEntity.extend({
 		// TODO: command to continue
            }
            else{
-		console.log("lifelog");
-		console.log(me.lifeStart);
+		//console.log("lifelog");
+		//console.log(me.lifeStart);
                me.game.HUD.setItemValue("lifes", me.lifeStart);
            }
            me.levelDirector.reloadLevel()

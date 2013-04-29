@@ -44,6 +44,10 @@ var g_resources= [{
     type: "tmx",
     src: "data/map/secret3.tmx"
 },{
+    name: "secret4",
+    type: "tmx",
+    src: "data/map/secret4.tmx"
+},{
     name: "endmap",
     type: "tmx",
     src: "data/map/endmap.tmx"

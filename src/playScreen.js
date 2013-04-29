@@ -13,7 +13,7 @@ var PlayScreen = me.ScreenObject.extend(
 },
     update: function()
 	{
-	     console.log("hallo");
+	     //console.log("hallo");
 		//Mute the Game	
 		if (me.input.isKeyPressed('mute')) {
 			me.music = me.music * -1;
