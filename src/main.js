@@ -173,6 +173,9 @@ var jsApp	=
        Initialize the jsApp
 
        ---			*/
+    onLevelLoad: function(){
+                     me.levelName = me.levelDirector();
+                 },
     onload: function()
     {
 
@@ -194,6 +197,9 @@ var jsApp	=
 
         // load everything & display a loading screen
         me.state.change(me.state.LOADING);
+
+        // Set onLevelLoad function
+        me.game.onLevelLoad = this.onLevelLoad.bind(this);
 
         // Init the game stats
     },
@@ -273,7 +279,8 @@ var PlayScreen = me.ScreenObject.extend(
     me.game.HUD.addItem("lifes", new HUDImageObject(yOffsetLifes,xOffset2Row,me.loader.getImage("life_icon")));
     me.game.HUD.addItem("coins", new HUDImageObject(yOffsetCoins,xOffset2Row,me.loader.getImage("coins_icon")));
     me.game.HUD.addItem("credits", new HUDImageObject(yOffsetCredits,xOffset2Row,me.loader.getImage("credits_icon")));
-    me.game.HUD.addItem("levelName", new LabelObject(xName, yName));
+    // Don't now how to change its value
+    // me.game.HUD.addItem("levelName", new LabelObject(xName, yName)); 
 
     //me.game.HUD.setItemValue("levelName","Level name" );
     me.game.HUD.updateItemValue("coins",0 );
@@ -297,6 +304,8 @@ var PlayScreen = me.ScreenObject.extend(
     onDestroyEvent: function()
 {
 
+                        me.game.HUD.removeItem("levelName");
+    me.levelDirector.loadLevel("level1");
 }
 
 });
@@ -325,7 +334,6 @@ var LabelObject = me.HUD_Item.extend({
      ------ */
     draw: function(context, x, y) {
               levelName = me.levelName.toString();
-              console.log("Level name: " + levelName);
               this.font.draw(context,levelName.toString(), this.pos.x + x, this.pos.y + y);
           }
 
@@ -366,7 +374,6 @@ var HUDImageObject = ScoreObject.extend({
               imageY = this.pos.y+y;
               labelX = imageX + this.imageW  + this.gap;
               labelY = imageY;// If font < 32 is used this has to be implemented
-              console.log(this.image);
               context.drawImage(this.image,imageX,imageY);
               this.font.draw(context, this.value, labelX, labelY);
 
@@ -386,7 +393,6 @@ var GameOverScreen = me.ScreenObject.extend({
           },
 
     onResetEvent: function(){
-                      console.log("Reset  debug screen");
                       if(!this.isLoaded  ){
                           this.font = new me.BitmapFont("32x32_font", 32);
                           this.font.set("left");
@@ -400,16 +406,14 @@ var GameOverScreen = me.ScreenObject.extend({
 
     update: function(){
                 if (me.input.isKeyPressed('enter')) {
+
                     me.state.change(me.state.CREDITS);
-                    console.log("Change to credit screen");
                 }
                 return true;
             },
     draw: function(context){
               // Draw BG Image
-              console.log(context.canvas.width + "x"+ context.canvas.height);
               context.drawImage(this.bgImage,0,0, context.canvas.width, context.canvas.height);
-              console.log(context);
               // Draw the game over label
               // TODO Automatic spacing
               labelWidth = this.font.measureText(context, this.textLabel);
@@ -421,7 +425,10 @@ var GameOverScreen = me.ScreenObject.extend({
               this.font.draw(context, "PRESS ENTER TO CONTINUE", 45, 320);
 
           },
-    onDestroyEvent: function(){ } 
+    onDestroyEvent: function(){
+                        me.game.HUD.removeItem("score");
+                    } 
+
 });
 
 
@@ -440,7 +447,6 @@ var TitleScreen = me.ScreenObject.extend({
 
 
     update: function() {
-                console.log( "Title screen updated");
                 if (me.input.isKeyPressed('enter')) {
                     me.state.change(me.state.PLAY);
                 }
